@@ -74,7 +74,49 @@ export const bitlayer: Layer2 = {
                 tokens:['BTC'],
                 sinceTimestamp: new UnixTime(1712247832),
                 chain: 'btc'
-            }
+            },
+            {
+                address: '3JszuRdFFEz1WbQKam4XjAtnZsYX62RLMX',
+                tokens:['BTC'],
+                sinceTimestamp: new UnixTime(1712247832),
+                chain: 'btc'
+            },
+            {
+                address: '33uhW878fbvVxZuZ216q2XvgdajLdG4rN4',
+                tokens:['BTC'],
+                sinceTimestamp: new UnixTime(1712247832),
+                chain: 'btc'
+            },
+            {
+                address: 'bc1p87c2auxxj372evzhd5f5huddtrladtkn3z4p94ew32qvwcsgujestjj45r',
+                tokens:['BTC'],
+                sinceTimestamp: new UnixTime(1712247832),
+                chain: 'btc'
+            },
+            {
+                address: 'bc1ph2x0wdm7vspgdtzuhhgcsey7ahmhypxgjnwfw0p8fghdp4qrnrrsfjc062',
+                tokens:['BTC'],
+                sinceTimestamp: new UnixTime(1712247832),
+                chain: 'btc'
+            },
+            {
+                address: 'bc1puqn6dw6etk6yg8zruvf2s94cmhxkfncsaumwhtfhu5qy3e6m94sq37eq66',
+                tokens:['BTC'],
+                sinceTimestamp: new UnixTime(1712247832),
+                chain: 'btc'
+            },
+            {
+                address: 'bc1pvnh3zy48ml3nhzhqrtc7endhj9rrtrv5puy2775p3jwka8y99aqsz78uu2',
+                tokens:['BTC'],
+                sinceTimestamp: new UnixTime(1712247832),
+                chain: 'btc'
+            },
+            {
+                address: 'bc1pxpp82hc4t4flkyqtjdnzr3q72qh9st78gfge50vzlrjtp9c6yn4s5zq5vk',
+                tokens:['BTC'],
+                sinceTimestamp: new UnixTime(1712247832),
+                chain: 'btc'
+            },
         ],
         transactionApi: {
             type: 'rpc',

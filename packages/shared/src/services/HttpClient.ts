@@ -11,7 +11,7 @@ export class HttpClient {
     const requestInit: RequestInit = {
       ...init,
       // 设置代理代理（如果存在）
-      agent: this.agent ?? init?.agent,
+      //agent: this.agent ?? init?.agent,
       // 设置超时时间
       timeout: (init && 'timeout' in init ? init.timeout : this.defaultTimeoutMs),
     };

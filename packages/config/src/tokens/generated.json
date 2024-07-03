@@ -15,21 +15,7 @@
       "type": "CBV",
       "formula": "locked"
     },
-    {
-      "id": "zrx-0x-protocol-token",
-      "name": "0x Protocol Token",
-      "coingeckoId": "0x",
-      "address": "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
-      "symbol": "ZRX",
-      "decimals": 18,
-      "deploymentTimestamp": 1502476756,
-      "coingeckoListingTimestamp": 1573689600,
-      "category": "other",
-      "iconUrl": "https://assets.coingecko.com/coins/images/863/large/0x.png?1696501996",
-      "chainId": 1,
-      "type": "CBV",
-      "formula": "locked"
-    },
+   
     {
       "id": "eth-ether",
       "name": "Ether",
@@ -44,7 +30,20 @@
       "type": "CBV",
       "formula": "locked"
     },
-    
+    {
+      "id": "bitlayer:btc-bitcoin",
+      "name": "Bitcoin",
+      "coingeckoId": "bitcoin",
+      "symbol": "BTC",
+      "decimals": 8,
+      "deploymentTimestamp": 1622240100,
+      "coingeckoListingTimestamp": 1622240100,
+      "category": "ether",
+      "iconUrl": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+      "chainId": 200901,
+      "type": "CBV",
+      "formula": "totalSupply"
+    },
     {
       "id": "bitlayer:eth-ethereum-token",
       "name": "Ethereum Token",
@@ -62,20 +61,6 @@
       "bridgedUsing": {
         "bridge": "BitLayer"
       }
-    },
-    {
-      "id": "bitlayer:btc-bitcoin",
-      "name": "Bitcoin",
-      "coingeckoId": "bitcoin",
-      "symbol": "BTC",
-      "decimals": 8,
-      "deploymentTimestamp": 1622240100,
-      "coingeckoListingTimestamp": 1622240100,
-      "category": "ether",
-      "iconUrl": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
-      "chainId": 200901,
-      "type": "CBV",
-      "formula": "locked"
     }
   ]
 }

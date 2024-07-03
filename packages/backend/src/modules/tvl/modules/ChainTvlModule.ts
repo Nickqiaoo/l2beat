@@ -107,7 +107,7 @@ export function chainTvlModule(
 
   const totalSupplyTokens = tokens
     // temporary solution - will be removed once tvl2 migration is complete
-    //.filter((t) => t.symbol !== 'ETH')
+    .filter((t) => t.symbol !== 'ETH').filter((t) => t.symbol !== 'BTC')
     .filter((t) => t.chainId === config.chainId && t.formula === 'totalSupply')
 
   const { totalSupplyUpdater, totalSupplyFormulaUpdater } =
