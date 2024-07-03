@@ -1,5 +1,5 @@
 import { Logger } from '@l2beat/backend-tools'
-import { BlockscoutClient, EtherscanClient } from '@l2beat/shared'
+import { BlockchainClient, BlockscoutClient, EtherscanClient } from '@l2beat/shared'
 import {
   AmountConfigEntry,
   EscrowEntry,
@@ -90,18 +90,30 @@ function createChainModule(
   logger = logger.tag(chain)
 
   const blockTimestampProvider =
-    chainConfig.config.blockNumberProviderConfig.type === 'etherscan'
-      ? peripherals.getClient(EtherscanClient, {
-          apiKey: chainConfig.config.blockNumberProviderConfig.etherscanApiKey,
-          url: chainConfig.config.blockNumberProviderConfig.etherscanApiUrl,
-          minTimestamp: chainConfig.config.minBlockTimestamp,
-          chainId: chainConfig.config.chainId,
-        })
-      : peripherals.getClient(BlockscoutClient, {
-          url: chainConfig.config.blockNumberProviderConfig.blockscoutApiUrl,
-          minTimestamp: chainConfig.config.minBlockTimestamp,
-          chainId: chainConfig.config.chainId,
-        })
+  (() => {
+  
+    if (chainConfig.config.blockNumberProviderConfig.type === 'blockscout') {
+      return peripherals.getClient(BlockscoutClient, {
+        url: chainConfig.config.blockNumberProviderConfig.blockscoutApiUrl,
+        minTimestamp: chainConfig.config.minBlockTimestamp,
+        chainId: chainConfig.config.chainId,
+      })
+    } else if (chainConfig.config.blockNumberProviderConfig.type === 'etherscan') {
+      return peripherals.getClient(EtherscanClient, {
+        url: chainConfig.config.blockNumberProviderConfig.etherscanApiUrl,
+        apiKey: chainConfig.config.blockNumberProviderConfig.etherscanApiKey,
+        minTimestamp: chainConfig.config.minBlockTimestamp,
+        chainId: chainConfig.config.chainId,
+      })
+    } else if (chainConfig.config.blockNumberProviderConfig.type === 'blockchain') {
+      return peripherals.getClient(BlockchainClient, {
+        minTimestamp: chainConfig.config.minBlockTimestamp,
+        chainId: chainConfig.config.chainId,
+      })
+    } else {
+      throw new Error('Unsupported block number provider type')
+    }
+  })()
 
   const rpcClient = peripherals.getClient(RpcClient, {
     url: chainConfig.config.providerUrl,

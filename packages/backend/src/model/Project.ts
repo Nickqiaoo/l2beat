@@ -43,7 +43,7 @@ export interface Project {
 }
 
 export interface ProjectEscrow {
-  address: EthereumAddress
+  address: EthereumAddress | string
   sinceTimestamp: UnixTime
   untilTimestamp?: UnixTime
   tokens: Token[]
@@ -68,6 +68,7 @@ export function layer2ToProject(layer2: Layer2): Project {
             )
           : escrow.tokens.map(getCanonicalTokenBySymbol),
       includeInTotal: escrow.includeInTotal,
+      chain:escrow.chain
     })),
     transactionApi: layer2.config.transactionApi,
     trackedTxsConfig: toBackendTrackedTxsConfig(

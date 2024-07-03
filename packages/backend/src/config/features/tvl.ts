@@ -34,7 +34,9 @@ export function getChainTvlConfig(
   const projectId =
     chain === 'ethereum'
       ? ProjectId.ETHEREUM
-      : layer2s.find((layer2) => layer2.chainConfig?.name === chain)?.id ??
+      : chain === 'bitcoin'
+        ? ProjectId.BITCOIN
+        : layer2s.find((layer2) => layer2.chainConfig?.name === chain)?.id ??
         layer3s.find((layer3) => layer3.chainConfig?.name === chain)?.id
   if (!projectId) {
     throw new Error('Missing project for chain: ' + chain)
@@ -72,14 +74,19 @@ export function getChainTvlConfig(
       blockNumberProviderConfig:
         chainConfig.explorerApi.type === 'etherscan'
           ? {
+            type: chainConfig.explorerApi.type,
+            etherscanApiKey: env.string([
+              `${ENV_NAME}_ETHERSCAN_API_KEY_FOR_TVL`,
+              `${ENV_NAME}_ETHERSCAN_API_KEY`,
+            ]),
+            etherscanApiUrl: chainConfig.explorerApi.url,
+          }
+          : chainConfig.explorerApi.type === 'blockchain'
+            ? {
               type: chainConfig.explorerApi.type,
-              etherscanApiKey: env.string([
-                `${ENV_NAME}_ETHERSCAN_API_KEY_FOR_TVL`,
-                `${ENV_NAME}_ETHERSCAN_API_KEY`,
-              ]),
-              etherscanApiUrl: chainConfig.explorerApi.url,
+              blockchainApiUrl: chainConfig.explorerApi.url
             }
-          : {
+            : {
               type: chainConfig.explorerApi.type,
               blockscoutApiUrl: chainConfig.explorerApi.url,
             },

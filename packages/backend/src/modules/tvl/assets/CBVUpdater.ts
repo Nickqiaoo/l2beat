@@ -32,6 +32,7 @@ export class CBVUpdater implements ReportUpdater {
     private readonly projects: ReportProject[],
     private readonly logger: Logger,
     private readonly minTimestamp: UnixTime,
+    private readonly chainId:ChainId
   ) {
     this.logger = this.logger.for(this)
 
@@ -47,7 +48,7 @@ export class CBVUpdater implements ReportUpdater {
   }
 
   getChainId() {
-    return ChainId.ETHEREUM
+    return this.chainId
   }
 
   getConfigHash() {

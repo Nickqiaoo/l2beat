@@ -85,6 +85,7 @@ export interface TvlConfig {
   readonly coingeckoApiKey: string | undefined
   readonly ethereum: ChainTvlConfig
   readonly modules: ChainTvlConfig[]
+  readonly bitcoin: ChainTvlConfig
 }
 
 export interface Tvl2Config {
@@ -137,6 +138,11 @@ export interface EtherscanChainConfig {
   readonly etherscanApiUrl: string
 }
 
+export interface BitcoinChainConfig {
+  readonly type: 'blockchain'
+  readonly blockchainApiUrl: string
+}
+
 export interface ChainTvlConfig {
   readonly chain: string
   readonly config?: {
@@ -148,6 +154,7 @@ export interface ChainTvlConfig {
     readonly blockNumberProviderConfig:
       | EtherscanChainConfig
       | BlockscoutChainConfig
+      | BitcoinChainConfig
     readonly multicallConfig: MulticallConfigEntry[]
   }
 }

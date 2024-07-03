@@ -31,8 +31,17 @@ const multicallInterface = new utils.Interface([
 ])
 
 export interface BalanceQuery {
-  holder: EthereumAddress
+  holder: EthereumAddress | string
   assetId: AssetId
+}
+
+export interface BalanceProvider {
+  getChainId(): ChainId
+  fetchBalances(
+    balanceQueries: BalanceQuery[],
+    timestamp: UnixTime,
+    blockNumber: number,
+  ): Promise<BalanceRecord[]>
 }
 
 export interface NativeBalanceEncoding {
@@ -49,13 +58,13 @@ export const ETHEREUM_BALANCE_ENCODING: NativeBalanceEncoding = {
   decode: decodeGetEthBalance,
 }
 
-export class BalanceProvider {
+export class ETHBalanceProvider implements BalanceProvider{
   constructor(
     private readonly ethereumClient: RpcClient,
     private readonly multicallClient: MulticallClient,
     private readonly chainId: ChainId,
     private readonly nativeBalanceEncoding: NativeBalanceEncoding | undefined,
-  ) {}
+  ) { }
 
   public getChainId(): ChainId {
     return this.chainId
@@ -68,7 +77,7 @@ export class BalanceProvider {
   ): Promise<BalanceRecord[]> {
     const nativeEncoding =
       this.nativeBalanceEncoding &&
-      this.nativeBalanceEncoding.sinceBlock <= blockNumber
+        this.nativeBalanceEncoding.sinceBlock <= blockNumber
         ? this.nativeBalanceEncoding
         : undefined
 
@@ -86,7 +95,7 @@ export class BalanceProvider {
 
     const nativeResponses = await Promise.all(
       native.map((balanceQuery) =>
-        this.ethereumClient.getBalance(balanceQuery.holder, blockNumber),
+        this.ethereumClient.getBalance(balanceQuery.holder as EthereumAddress, blockNumber),
       ),
     )
 
@@ -127,7 +136,7 @@ export class BalanceProvider {
       )
       return {
         address: nativeEncoding.address,
-        data: nativeEncoding.encode(holder),
+        data: nativeEncoding.encode(holder as EthereumAddress),
       }
     }
 
@@ -138,7 +147,7 @@ export class BalanceProvider {
       `Unknown token address for balance query: ${assetId.toString()}`,
     )
 
-    return encodeErc20BalanceQuery(holder, tokenAddress)
+    return encodeErc20BalanceQuery(holder as EthereumAddress, tokenAddress)
   }
 
   private usesNativeCall(

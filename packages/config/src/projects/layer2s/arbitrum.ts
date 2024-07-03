@@ -159,18 +159,18 @@ export const arbitrum: Layer2 = {
           'Main entry point for users depositing ERC20 tokens. Upon depositing, on L2 a generic, "wrapped" token will be minted.',
         ...upgradesGatewaysAdmin,
       }),
-      discovery.getEscrowDetails({
-        address: EthereumAddress('0xA10c7CE4b876998858b1a9E12b10092229539400'),
-        tokens: ['DAI'],
-        description:
-          'DAI Vault for custom DAI Gateway. Fully controlled by MakerDAO governance.',
-      }),
-      discovery.getEscrowDetails({
-        address: EthereumAddress('0x0F25c1DC2a9922304f2eac71DCa9B07E310e8E5a'),
-        tokens: ['wstETH'],
-        description:
-          'wstETH Vault for custom wstETH Gateway. Fully controlled by Lido governance.',
-      }),
+      // discovery.getEscrowDetails({
+      //   address: EthereumAddress('0xA10c7CE4b876998858b1a9E12b10092229539400'),
+      //   tokens: ['DAI'],
+      //   description:
+      //     'DAI Vault for custom DAI Gateway. Fully controlled by MakerDAO governance.',
+      // }),
+      // discovery.getEscrowDetails({
+      //   address: EthereumAddress('0x0F25c1DC2a9922304f2eac71DCa9B07E310e8E5a'),
+      //   tokens: ['wstETH'],
+      //   description:
+      //     'wstETH Vault for custom wstETH Gateway. Fully controlled by Lido governance.',
+      // }),
       {
         // This bridge is inactive, but we keep it
         // in case we have to gather historic data
@@ -186,7 +186,8 @@ export const arbitrum: Layer2 = {
       // We need to subtract the Nitro system transactions
       // after the block of the update
       assessCount: subtractOneAfterBlockInclusive(22207818),
-      startBlock: 1,
+      startBlock: 225162460,
+      defaultCallsPerMinute:300
     },
     finality: {
       type: 'Arbitrum',

@@ -20,7 +20,7 @@ import {
 
 export interface BalanceRecord {
   timestamp: UnixTime
-  holderAddress: EthereumAddress
+  holderAddress: EthereumAddress | string
   assetId: AssetId
   balance: bigint
   chainId: ChainId
@@ -106,7 +106,7 @@ export class BalanceRepository extends BaseRepository {
 
 function toRecord(row: BalanceRow): BalanceRecord {
   return {
-    holderAddress: EthereumAddress(row.holder_address),
+    holderAddress: row.holder_address,
     assetId: AssetId(row.asset_id),
     timestamp: UnixTime.fromDate(row.unix_timestamp),
     balance: BigInt(row.balance),

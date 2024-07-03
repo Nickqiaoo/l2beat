@@ -10,5 +10,6 @@ export function ChainId(value: number): ChainId {
 }
 
 ChainId.ETHEREUM = ChainId(1)
+ChainId.BITCOIN = ChainId(0)
 ChainId.ARBITRUM = ChainId(42161)
 ChainId.OPTIMISM = ChainId(10)

@@ -141,7 +141,8 @@ async function getCoingeckoListingTimestamp(
     await coingeckoClient.getCoinMarketChartRange(
       coingeckoId,
       'usd',
-      ethereum.minTimestampForTvl ?? new UnixTime(0),
+      UnixTime.now().add(-3,"days"),
+      // TODO: change days
       UnixTime.now(),
     )
 

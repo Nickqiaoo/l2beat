@@ -255,7 +255,7 @@ function reshapeCanonicalResponse(
         amount: string
         usdValue: string
         usdPrice: string
-        escrowAddress: EthereumAddress
+        escrowAddress: EthereumAddress | string
       }[]
     >
   >,

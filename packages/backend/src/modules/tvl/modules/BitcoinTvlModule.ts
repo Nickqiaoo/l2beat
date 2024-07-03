@@ -1,20 +1,15 @@
 import { assert, Logger } from '@l2beat/backend-tools'
-import { EtherscanClient } from '@l2beat/shared'
+import { BlockchainClient, EtherscanClient } from '@l2beat/shared'
 import { ChainId } from '@l2beat/shared-pure'
 
 import { Config } from '../../../config'
 import { Peripherals } from '../../../peripherals/Peripherals'
-import { MulticallClient } from '../../../peripherals/multicall/MulticallClient'
-import { RpcClient } from '../../../peripherals/rpcclient/RpcClient'
+
 import { Clock } from '../../../tools/Clock'
 import { BlockNumberUpdater } from '../BlockNumberUpdater'
 import { PriceUpdater } from '../PriceUpdater'
 import { CBVUpdater } from '../assets'
-import {
-  BalanceProvider,
-  ETHBalanceProvider,
-  ETHEREUM_BALANCE_ENCODING,
-} from '../balances/BalanceProvider'
+
 import { BalanceUpdater } from '../balances/BalanceUpdater'
 import { BalanceRepository } from '../repositories/BalanceRepository'
 import { BalanceStatusRepository } from '../repositories/BalanceStatusRepository'
@@ -22,69 +17,52 @@ import { BlockNumberRepository } from '../repositories/BlockNumberRepository'
 import { ReportRepository } from '../repositories/ReportRepository'
 import { ReportStatusRepository } from '../repositories/ReportStatusRepository'
 import { TvlModule } from './types'
+import { BitcoinBalanceProvider } from '../balances/BitcoinBalanceProvider'
 
-export function createEthereumTvlModule(
+export function createBitcoinTvlModule(
   peripherals: Peripherals,
   priceUpdater: PriceUpdater,
   config: Config,
   logger: Logger,
   clock: Clock,
 ): TvlModule | undefined {
-  const tvlConfig = config.tvl.ethereum.config
+  const tvlConfig = config.tvl.bitcoin.config
   if (!tvlConfig) {
-    logger.info('EthereumTvlModule disabled')
+    logger.info('BitcoinTvlModule disabled')
     return
   }
 
-  logger = logger.tag('ethereum')
+  logger = logger.tag('bitcoin')
 
   // #region peripherals
 
-  assert(tvlConfig.blockNumberProviderConfig.type === 'etherscan')
-  const etherscanClient = peripherals.getClient(EtherscanClient, {
-    url: tvlConfig.blockNumberProviderConfig.etherscanApiUrl,
-    apiKey: tvlConfig.blockNumberProviderConfig.etherscanApiKey,
-    chainId: ChainId.ETHEREUM,
-    minTimestamp: tvlConfig.minBlockTimestamp,
-  })
+  assert(tvlConfig.blockNumberProviderConfig.type === 'blockchain')
 
-  const ethereumClient = peripherals.getClient(RpcClient, {
-    url: tvlConfig.providerUrl,
-    callsPerMinute: tvlConfig.providerCallsPerMinute,
-  })
-  const multicallClient = new MulticallClient(
-    ethereumClient,
-    tvlConfig.multicallConfig,
+  const bitcoinClient = peripherals.getClient(BlockchainClient, {})
+  
+
+  const balanceProvider = new BitcoinBalanceProvider(
+    bitcoinClient,
   )
 
-  const balanceProvider = new ETHBalanceProvider(
-    ethereumClient,
-    multicallClient,
-    ChainId.ETHEREUM,
-    ETHEREUM_BALANCE_ENCODING,
-  )
-
-  // #endregion
-  // #region updaters
-
-  const ethereumBlockNumberUpdater = new BlockNumberUpdater(
-    etherscanClient,
+  const bitcoinBlockNumberUpdater = new BlockNumberUpdater(
+    bitcoinClient,
     peripherals.getRepository(BlockNumberRepository),
     clock,
     logger,
-    ChainId.ETHEREUM,
+    ChainId(0),
     tvlConfig.minBlockTimestamp,
   )
 
   const balanceUpdater = new BalanceUpdater(
     balanceProvider,
-    ethereumBlockNumberUpdater,
+    bitcoinBlockNumberUpdater,
     peripherals.getRepository(BalanceRepository),
     peripherals.getRepository(BalanceStatusRepository),
     clock,
     config.projects,
     logger,
-    ChainId.ETHEREUM,
+    ChainId(0),
     tvlConfig.minBlockTimestamp,
   )
 
@@ -97,16 +75,15 @@ export function createEthereumTvlModule(
     config.projects,
     logger,
     tvlConfig.minBlockTimestamp,
-    ChainId.ETHEREUM
+    ChainId.BITCOIN
   )
 
-  // #endregion
 
   const start = async () => {
-    logger = logger.for('EthereumTvlModule')
+    logger = logger.for('BitcoinTvlModule')
     logger.info('Starting')
 
-    await ethereumBlockNumberUpdater.start()
+    await bitcoinBlockNumberUpdater.start()
     await balanceUpdater.start()
     await cbvUpdater.start()
 
@@ -114,9 +91,9 @@ export function createEthereumTvlModule(
   }
 
   return {
-    chain: config.tvl.ethereum.chain,
+    chain: config.tvl.bitcoin.chain,
     reportUpdaters: [cbvUpdater],
-    dataUpdaters: [ethereumBlockNumberUpdater, balanceUpdater],
+    dataUpdaters: [bitcoinBlockNumberUpdater, balanceUpdater],
     start,
   }
 }

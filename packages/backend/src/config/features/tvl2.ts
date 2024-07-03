@@ -10,6 +10,7 @@ import {
 import {
   AmountConfigEntry,
   ChainId,
+  EthereumAddress,
   PriceConfigEntry,
   ProjectId,
   Token,
@@ -87,6 +88,9 @@ function getAmountsConfig(
       if (token.symbol === 'ETH') {
         continue
       }
+      if (token.symbol === 'BTC') {
+        continue
+      }
       const project = chainToProject.get(chainConverter.toName(token.chainId))
       assert(project, 'Project is required for token')
 
@@ -141,7 +145,7 @@ function getAmountsConfig(
             token.untilTimestamp,
             escrow.untilTimestamp,
           ),
-          escrowAddress: escrow.address,
+          escrowAddress: escrow.address as EthereumAddress,
           project: project.projectId,
           source: 'canonical',
           includeInTotal: escrow.includeInTotal ?? true,

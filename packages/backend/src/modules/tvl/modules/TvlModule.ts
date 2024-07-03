@@ -23,6 +23,7 @@ import { TotalSupplyRepository } from '../repositories/TotalSupplyRepository'
 import { chainTvlModule } from './ChainTvlModule'
 import { createEthereumTvlModule } from './EthereumTvlModule'
 import { TvlCleaner } from './TvlCleaner'
+import { createBitcoinTvlModule } from './BitcoinTvlModule'
 
 export function createTvlModule(
   config: Config,
@@ -77,6 +78,14 @@ export function createTvlModule(
           logger,
           clock,
         )
+      : tvlConfig.chain === 'bitcoin'
+      ? createBitcoinTvlModule(
+        peripherals,
+        priceUpdater,
+        config,
+        logger,
+        clock,
+      )
       : chainTvlModule(
           tvlConfig,
           config.tokens,

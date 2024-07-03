@@ -1,5 +1,5 @@
 import { Logger } from '@l2beat/backend-tools'
-import { assert, ChainId, Hash256, UnixTime } from '@l2beat/shared-pure'
+import { assert, ChainId, EthereumAddress, Hash256, UnixTime } from '@l2beat/shared-pure'
 import { setTimeout } from 'timers/promises'
 
 import { Clock } from '../../../tools/Clock'
@@ -33,7 +33,12 @@ export class BalanceUpdater {
     private readonly minTimestamp: UnixTime,
   ) {
     this.logger = this.logger.for(this)
-    this.configHash = getBalanceConfigHash(projects)
+    if (this.chainId == ChainId.BITCOIN){
+      this.projects = filterBtcBalanceProjects(projects)
+    } else {
+      this.projects = filterNonBtcBalanceProjects(projects)
+    }
+    this.configHash = getBalanceConfigHash(this.projects)
     this.taskQueue = new TaskQueue(
       (timestamp) => this.update(timestamp),
       this.logger.for('taskQueue'),
@@ -106,7 +111,7 @@ export class BalanceUpdater {
     assert(
       timestamp.gte(this.minTimestamp),
       'Timestamp cannot be smaller than minTimestamp',
-    )
+    ) 
 
     this.logger.debug('Update started', {
       timestamp: timestamp.toNumber(),
@@ -187,4 +192,22 @@ export function getMissingData(
     }
   }
   return missing
+}
+
+function filterBtcBalanceProjects(projects: BalanceProject[]): BalanceProject[] {
+  return projects
+    .map((project) => ({
+      ...project,
+      escrows: project.escrows.filter((escrow) => escrow.chain === 'btc'),
+    }))
+    .filter((project) => project.escrows.length > 0)
+}
+
+function filterNonBtcBalanceProjects(projects: BalanceProject[]): BalanceProject[] {
+  return projects
+    .map((project) => ({
+      ...project,
+      escrows: project.escrows.filter((escrow) => escrow.chain !== 'btc'),
+    }))
+    .filter((project) => project.escrows.length > 0)
 }

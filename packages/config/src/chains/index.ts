@@ -8,6 +8,7 @@ import { celo } from './celo'
 import { ethereum } from './ethereum'
 import { gnosis } from './gnosis'
 import { polygonpos } from './polygonpos'
+import { bitcoin } from './bitcoin'
 
 export const chains: ChainConfig[] = [
   ...layer2s.map((layer2) => layer2.chainConfig).filter(notUndefined),
@@ -18,4 +19,5 @@ export const chains: ChainConfig[] = [
   ethereum,
   gnosis,
   polygonpos,
+  bitcoin,
 ]

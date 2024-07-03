@@ -1,6 +1,7 @@
 import { Logger } from '@l2beat/backend-tools'
 import {
   BlockNumberProvider,
+  BlockchainClient,
   BlockscoutClient,
   CoingeckoQueryService,
   EtherscanClient,
@@ -53,18 +54,30 @@ export function chainTvlModule(
   // #region peripherals
 
   const blockNumberProvider: BlockNumberProvider =
-    config.blockNumberProviderConfig.type === 'blockscout'
-      ? peripherals.getClient(BlockscoutClient, {
-          url: config.blockNumberProviderConfig.blockscoutApiUrl,
-          minTimestamp: config.minBlockTimestamp,
-          chainId: config.chainId,
-        })
-      : peripherals.getClient(EtherscanClient, {
-          url: config.blockNumberProviderConfig.etherscanApiUrl,
-          apiKey: config.blockNumberProviderConfig.etherscanApiKey,
-          minTimestamp: config.minBlockTimestamp,
-          chainId: config.chainId,
-        })
+  (() => {
+  
+    if (config.blockNumberProviderConfig.type === 'blockscout') {
+      return peripherals.getClient(BlockscoutClient, {
+        url: config.blockNumberProviderConfig.blockscoutApiUrl,
+        minTimestamp: config.minBlockTimestamp,
+        chainId: config.chainId,
+      })
+    } else if (config.blockNumberProviderConfig.type === 'etherscan') {
+      return peripherals.getClient(EtherscanClient, {
+        url: config.blockNumberProviderConfig.etherscanApiUrl,
+        apiKey: config.blockNumberProviderConfig.etherscanApiKey,
+        minTimestamp: config.minBlockTimestamp,
+        chainId: config.chainId,
+      })
+    } else if (config.blockNumberProviderConfig.type === 'blockchain') {
+      return peripherals.getClient(BlockchainClient, {
+        minTimestamp: config.minBlockTimestamp,
+        chainId: config.chainId,
+      })
+    } else {
+      throw new Error('Unsupported block number provider type')
+    }
+  })()
 
   const ethereumClient = peripherals.getClient(RpcClient, {
     url: config.providerUrl,
@@ -94,7 +107,7 @@ export function chainTvlModule(
 
   const totalSupplyTokens = tokens
     // temporary solution - will be removed once tvl2 migration is complete
-    .filter((t) => t.symbol !== 'ETH')
+    //.filter((t) => t.symbol !== 'ETH')
     .filter((t) => t.chainId === config.chainId && t.formula === 'totalSupply')
 
   const { totalSupplyUpdater, totalSupplyFormulaUpdater } =

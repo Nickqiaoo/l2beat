@@ -19,7 +19,8 @@ export function getProjectsWithActivity() {
       transactionApi: {
         type: 'rpc',
         defaultUrl: 'https://eth-mainnet.alchemyapi.io/v2/demo',
-        startBlock: 8929324,
+        startBlock: 20160349,
+        defaultCallsPerMinute:100
       } as ScalingProjectTransactionApi,
     },
     ...projects.flatMap((x) =>

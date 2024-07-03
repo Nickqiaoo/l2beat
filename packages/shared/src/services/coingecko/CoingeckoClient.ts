@@ -20,7 +20,7 @@ const API_URL = 'https://api.coingecko.com/api/v3'
 const PRO_API_URL = 'https://pro-api.coingecko.com/api/v3'
 
 export class CoingeckoClient {
-  private readonly timeoutMs = 10_000
+  private readonly timeoutMs = 10_0000
   private readonly newIds = new Map<string, CoingeckoId>()
 
   constructor(
@@ -152,13 +152,14 @@ export class CoingeckoClient {
 
   async query(endpoint: string, params: Record<string, string>) {
     const queryParams = this.apiKey
-      ? { ...params, x_cg_pro_api_key: this.apiKey }
+      ? { ...params, x_cg_demo_api_key: this.apiKey }
       : params
     const query = new URLSearchParams(queryParams).toString()
-    let url = `${this.apiKey ? PRO_API_URL : API_URL}${endpoint}`
+    let url = `${this.apiKey ? API_URL : API_URL}${endpoint}`
     if (query) {
       url += `?${query}`
     }
+    console.log('timeout1: endpoint:',this.timeoutMs, endpoint);
     const res = await this.httpClient.fetch(url, { timeout: this.timeoutMs })
     if (!res.ok) {
       const body = await res.text()

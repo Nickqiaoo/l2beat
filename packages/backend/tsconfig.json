@@ -2,7 +2,15 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "build",
-    "rootDir": "."
+    "rootDir": ".",
+    "paths": {
+      "@l2beat/config": ["../config"],
+      "@l2beat/shared-pure": ["../shared-pure"],
+      "@l2beat/discovery": ["../discovery"],
+      "@l2beat/backend-tools": ["../backend-tools"],
+      "@l2beat/shared": ["../shared"],
+
+    },
   },
   "include": ["src", "scripts"]
 }

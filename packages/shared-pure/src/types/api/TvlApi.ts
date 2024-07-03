@@ -86,7 +86,7 @@ export const CanonicalAssetBreakdownData = BaseAssetBreakdownData.extend({
     z.object({
       amount: z.string(),
       usdValue: z.string(),
-      escrowAddress: branded(z.string(), EthereumAddress),
+      escrowAddress: z.union([branded(z.string(), EthereumAddress), z.string()]),
     }),
   ),
 })

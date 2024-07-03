@@ -155,6 +155,12 @@ export function makeConfig(
         'ethereum',
         { minTimestamp: minTimestampOverride },
       ),
+      bitcoin:getChainTvlConfig(
+        flags.isEnabled('tvl', 'bitcoin'),
+        env,
+        'bitcoin',
+        { minTimestamp: minTimestampOverride },
+      ),
       modules: getChainsWithTokens(tokenList, chains).map((chain) =>
         getChainTvlConfig(flags.isEnabled('tvl', chain), env, chain, {
           minTimestamp: minTimestampOverride,
