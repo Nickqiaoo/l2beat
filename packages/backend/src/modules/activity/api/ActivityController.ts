@@ -175,27 +175,39 @@ export class ActivityController {
       // No data in activity chart
       return { type: 'error', error: 'DATA_NOT_SYNCED' }
     }
-    const ethChartTimestampIndex = ethereumChartData.findIndex(
-      (x) => x.timestamp.toNumber() === lastProjectTimestamp.toNumber(),
-    )
-    if (ethChartTimestampIndex === -1) {
-      return { type: 'error', error: 'ETHEREUM_DATA_DELAYED' }
-    }
-    const alignedEthChartData = ethereumChartData.slice(
-      0,
-      ethChartTimestampIndex + 1,
-    )
-    const length = Math.min(apiChartData.length, alignedEthChartData.length)
+    // const ethChartTimestampIndex = ethereumChartData.findIndex(
+    //   (x) => x.timestamp.toNumber() === lastProjectTimestamp.toNumber(),
+    // )
+    // if (ethChartTimestampIndex === -1) {
+    //   return { type: 'error', error: 'ETHEREUM_DATA_DELAYED' }
+    // }
+    // const alignedEthChartData = ethereumChartData.slice(
+    //   0,
+    //   ethChartTimestampIndex + 1,
+    // )
+    // const length = Math.min(apiChartData.length, alignedEthChartData.length)
+
+    // const data: ActivityApiChart['data'] = new Array(length)
+    //   .fill(0)
+    //   .map((_, i) => {
+    //     const apiPoint = apiChartData.at(-length + i)
+    //     const ethPoint = alignedEthChartData.at(-length + i)
+    //     return [
+    //       apiPoint?.timestamp ?? new UnixTime(0),
+    //       apiPoint?.count ?? 0,
+    //       ethPoint?.count ?? 0,
+    //     ]
+    //   })
+    const length = apiChartData.length
 
     const data: ActivityApiChart['data'] = new Array(length)
       .fill(0)
       .map((_, i) => {
-        const apiPoint = apiChartData.at(-length + i)
-        const ethPoint = alignedEthChartData.at(-length + i)
+        const apiPoint = apiChartData.at(i)
         return [
           apiPoint?.timestamp ?? new UnixTime(0),
           apiPoint?.count ?? 0,
-          ethPoint?.count ?? 0,
+          0
         ]
       })
 
