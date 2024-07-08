@@ -50,12 +50,14 @@ export function getTokenByAssetId(assetId: AssetId) {
 }
 
 function toToken(generated: GeneratedToken): Token {
-  const sinceTimestamp = new UnixTime(
-    Math.max(
-      generated.deploymentTimestamp.toNumber(),
-      generated.coingeckoListingTimestamp.toNumber(),
-    ),
-  )
+  // const sinceTimestamp = new UnixTime(
+  //   Math.max(
+  //     generated.deploymentTimestamp.toNumber(),
+  //     generated.coingeckoListingTimestamp.toNumber(),
+  //   ),
+  // )
+
+  const sinceTimestamp = new UnixTime(generated.deploymentTimestamp.toNumber())
 
   return {
     ...generated,

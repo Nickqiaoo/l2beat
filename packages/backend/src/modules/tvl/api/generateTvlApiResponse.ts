@@ -3,6 +3,7 @@ import {
   TvlApiChart,
   TvlApiChartPoint,
   TvlApiCharts,
+  TvlApiProject,
   TvlApiResponse,
   UnixTime,
 } from '@l2beat/shared-pure'
@@ -114,6 +115,13 @@ export function generateTvlApiResponse(
     },
     {},
   )
+  Object.keys(projectsResult).forEach((key) => {
+    const project = projectsResult[key];
+    if (project) {
+      calculateSummary(project);
+      calculateChange(project);
+    }
+  });
 
   return {
     // biome-ignore lint/style/noNonNullAssertion: we know it's there
@@ -124,6 +132,40 @@ export function generateTvlApiResponse(
     // combined: charts.get(ProjectId.ALL)!,
     projects: projectsResult,
   }
+}
+
+function calculateChange(project: TvlApiProject) {
+  const len = project.charts.daily.data.length
+  var today = project.charts.daily.data[len-1][1]
+  var last = project.charts.daily.data[len-8][1]
+  project.summary.change = parseFloat(((today - last) / last * 100).toFixed(2));
+}
+
+function calculateSummary(project: TvlApiProject) {
+  const cbvTotal = project.tokens.CBV.reduce((sum, token) => sum + token.usdValue, 0);
+  const ebvTotal = project.tokens.EBV.reduce((sum, token) => sum + token.usdValue, 0);
+  const nmvTotal = project.tokens.NMV.reduce((sum, token) => sum + token.usdValue, 0);
+  const tvl = cbvTotal + ebvTotal + nmvTotal;
+
+  const btcTotal = project.tokens.CBV
+    .filter(token => token.assetId.includes('btc'))
+    .reduce((sum, token) => sum + token.usdValue, 0);
+
+  const stableTotal = project.tokens.EBV.concat(project.tokens.NMV)
+    .filter(token => token.assetId.includes('usdt') || token.assetId.includes('usdc'))
+    .reduce((sum, token) => sum + token.usdValue, 0);
+
+  const otherTotal = tvl - btcTotal - stableTotal;
+  project.summary.tvl = tvl;
+  project.summary.canonical_tvl = parseFloat(cbvTotal.toFixed(2));
+  project.summary.canonical_perc = parseFloat((cbvTotal / tvl * 100).toFixed(2));
+  project.summary.external_tvl = parseFloat(ebvTotal.toFixed(2));
+  project.summary.external_perc =  parseFloat((ebvTotal / tvl * 100).toFixed(2));
+  project.summary.native_tvl = parseFloat(nmvTotal.toFixed(2));
+  project.summary.native_perc =  parseFloat((nmvTotal / tvl * 100).toFixed(2));
+  project.summary.btc_perc =  parseFloat((btcTotal / tvl * 100).toFixed(2));
+  project.summary.stable_perc =  parseFloat((stableTotal / tvl * 100).toFixed(2));
+  project.summary.other_perc =  parseFloat((otherTotal / tvl * 100).toFixed(2));
 }
 
 function fillCharts(
