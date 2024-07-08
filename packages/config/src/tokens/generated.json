@@ -10,7 +10,7 @@
       "deploymentTimestamp": 1573689600,
       "coingeckoListingTimestamp": 1573689600,
       "category": "ether",
-      "iconUrl": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+      "iconUrl": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
       "chainId": 0,
       "type": "CBV",
       "formula": "locked"
@@ -38,7 +38,7 @@
       "deploymentTimestamp": 1622240100,
       "coingeckoListingTimestamp": 1622240100,
       "category": "ether",
-      "iconUrl": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+      "iconUrl": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
       "chainId": 200901,
       "type": "CBV",
       "formula": "totalSupply"

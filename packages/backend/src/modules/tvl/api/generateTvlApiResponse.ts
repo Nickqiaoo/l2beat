@@ -74,7 +74,7 @@ export function generateTvlApiResponse(
         data: generateZeroes(
           UnixTime.max(
             sinceTimestamp,
-            untilTimestamp.add(-90, 'days').add(6, 'hours'),
+            untilTimestamp.add(-30, 'days').add(6, 'hours'),
           ),
           untilTimestamp,
           6,
@@ -96,6 +96,19 @@ export function generateTvlApiResponse(
         // biome-ignore lint/style/noNonNullAssertion: we know it's there
         charts: charts.get(project.id)!,
         tokens: getProjectTokensCharts(groupedLatestReports, project.id),
+        summary: {
+          tvl: 0,
+          change: 0,
+          canonical_tvl: 0,
+          canonical_perc: 0,
+          external_tvl: 0,
+          external_perc: 0,
+          native_tvl: 0,
+          native_perc: 0,
+          btc_perc: 0,
+          stable_perc: 0,
+          other_perc: 0
+        }
       }
       return acc
     },
@@ -106,9 +119,9 @@ export function generateTvlApiResponse(
     // biome-ignore lint/style/noNonNullAssertion: we know it's there
     layers2s: charts.get(ProjectId.LAYER2S)!,
     // biome-ignore lint/style/noNonNullAssertion: we know it's there
-    bridges: charts.get(ProjectId.BRIDGES)!,
+    // bridges: charts.get(ProjectId.BRIDGES)!,
     // biome-ignore lint/style/noNonNullAssertion: we know it's there
-    combined: charts.get(ProjectId.ALL)!,
+    // combined: charts.get(ProjectId.ALL)!,
     projects: projectsResult,
   }
 }

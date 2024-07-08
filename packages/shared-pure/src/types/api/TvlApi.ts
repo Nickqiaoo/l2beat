@@ -62,13 +62,26 @@ export const TvlApiProject = z.object({
     NMV: z.array(TvlApiToken),
   }),
   charts: TvlApiCharts,
+  summary:z.object({
+    tvl:  z.number(),
+    change:  z.number(),
+    canonical_tvl:  z.number(),
+    canonical_perc:  z.number(),
+    external_tvl:  z.number(),
+    external_perc:  z.number(),
+    native_tvl:  z.number(),
+    native_perc:  z.number(),
+    btc_perc:  z.number(),
+    stable_perc:  z.number(),
+    other_perc:  z.number(),
+  }),
 })
 export type TvlApiProject = z.infer<typeof TvlApiProject>
 
 export const TvlApiResponse = z.object({
-  bridges: TvlApiCharts,
+  //bridges: TvlApiCharts,
   layers2s: TvlApiCharts,
-  combined: TvlApiCharts,
+  //combined: TvlApiCharts,
   projects: z.record(z.string(), TvlApiProject.optional()),
 })
 export type TvlApiResponse = z.infer<typeof TvlApiResponse>

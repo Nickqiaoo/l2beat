@@ -283,6 +283,19 @@ export class Tvl2Controller {
             NMV: [],
           },
           charts,
+          summary:{
+            tvl: 0,
+            change: 0,
+            canonical_tvl: 0,
+            canonical_perc: 0,
+            external_tvl: 0,
+            external_perc: 0,
+            native_tvl: 0,
+            native_perc: 0,
+            btc_perc: 0,
+            stable_perc: 0,
+            other_perc: 0
+          },
         }
         continue
       }
@@ -310,6 +323,19 @@ export class Tvl2Controller {
       projectData[projectId] = {
         tokens: breakdown,
         charts,
+        summary:{
+          tvl: 0,
+          change: 0,
+          canonical_tvl: 0,
+          canonical_perc: 0,
+          external_tvl: 0,
+          external_perc: 0,
+          native_tvl: 0,
+          native_perc: 0,
+          btc_perc: 0,
+          stable_perc: 0,
+          other_perc: 0
+        }
       }
     }
 
@@ -333,9 +359,9 @@ export class Tvl2Controller {
     }
 
     const result: TvlApiResponse = {
-      bridges,
+      //bridges,
       layers2s: layer2sTotal,
-      combined,
+      //combined,
       projects: projectData,
     }
 
