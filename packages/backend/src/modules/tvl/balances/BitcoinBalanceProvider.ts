@@ -46,11 +46,6 @@ export class BitcoinBalanceProvider implements BalanceProvider {
           finalBalance = balanceAtBlock;
           break; // 找到指定区块高度的余额后退出循环
         }
-  
-         // 如果当前页的交易记录中最大区块高度已经小于目标区块高度，则不再需要继续请求
-         if (transactions.length > 0 && transactions[transactions.length - 1].block_height < blockHeight) {
-          break;
-        }
         
         hasMorePages = transactions.length > 0; // 假设API在没有更多交易时返回空数组
         page++;

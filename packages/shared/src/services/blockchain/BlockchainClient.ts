@@ -78,7 +78,7 @@ export class BlockchainClient implements BlockNumberProvider {
   async getAddressTransactions(address: string, n: number = 50, offset: number = 0): Promise<AddressTransactionResult> {
     const endpoint = `/rawaddr/${address}`
     const params = {
-      n: n.toString(),
+      limit: n.toString(),
       offset: offset.toString(),
     }
     const data = await this.query(endpoint, params)

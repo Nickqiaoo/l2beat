@@ -111,6 +111,7 @@ import { zksyncera } from './zksyncera'
 import { zksynclite } from './zksynclite'
 import { zora } from './zora'
 import { bitlayer } from './bitlayer'
+import { bevm } from './bevm'
 export * from './common'
 export * from './types'
 
@@ -120,6 +121,7 @@ export const layer2s: Layer2[] = [
   // apex,
   //arbitrum,
   bitlayer,
+  bevm,
   // astarzkevm,
   // axonum,
   // aztecV1,

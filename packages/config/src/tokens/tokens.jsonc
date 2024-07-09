@@ -60,5 +60,23 @@
       "formula": "locked",
       "category": "ether"
     }
+  ],
+  "bevm": [
+    {
+      "symbol": "BTC",
+      "type": "CBV",
+      "formula": "totalSupply", // formula does not matter here
+      "category": "ether"
+    },
+    {
+      "symbol": "WBTC",
+      "type": "EBV",
+      "address": "0xB5136FEba197f5fF4B765E5b50c74db717796dcD",
+      "formula": "totalSupply", 
+      "coingeckoId": "wrapped-bitcoin",
+      "bridgedUsing": {
+        "bridge": "bevm"
+      }
+    }
   ]
 }
