@@ -207,7 +207,8 @@ export class ActivityController {
         return [
           apiPoint?.timestamp ?? new UnixTime(0),
           apiPoint?.count ?? 0,
-          0
+          0,
+          apiPoint?.count !== undefined && apiPoint.count > 0 ? apiPoint.count / 86400 : 0,
         ]
       })
 

@@ -87,10 +87,12 @@ export class BitcoinBalanceProvider implements BalanceProvider {
     const transactions = await this.blockchainClient.getAddressTransactions(holder, 50, offset);
 
     // 将结果缓存
-    this.cache.set(cacheKey, {
-      timestamp: currentTime,
-      transactions: transactions.txs
-    });
+    if (offset !== 0) {
+      this.cache.set(cacheKey, {
+          timestamp: currentTime,
+          transactions: transactions.txs
+        });
+    }
 
     return transactions.txs;
   }

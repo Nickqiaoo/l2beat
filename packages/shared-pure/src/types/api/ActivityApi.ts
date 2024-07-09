@@ -7,6 +7,7 @@ export const ActivityApiChartPoint = z.tuple([
   branded(z.number(), (n) => new UnixTime(n)),
   z.number().int(),
   z.number().int(),
+  z.number().int(),
 ])
 export type ActivityApiChartPoint = z.infer<typeof ActivityApiChartPoint>
 
@@ -15,6 +16,7 @@ export const ActivityApiChart = z.object({
     z.literal('timestamp'),
     z.literal('transactions'),
     z.literal('ethereumTransactions'),
+    z.literal('tps'),
   ]),
   data: z.array(ActivityApiChartPoint),
 })
@@ -22,6 +24,11 @@ export type ActivityApiChart = z.infer<typeof ActivityApiChart>
 
 export const ActivityApiCharts = z.object({
   daily: ActivityApiChart,
+  summary:z.object({
+    tps:  z.number(),
+    change: z.number(),
+    max_day: z.string()
+  }),
 })
 export type ActivityApiCharts = z.infer<typeof ActivityApiCharts>
 

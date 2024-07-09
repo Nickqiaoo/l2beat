@@ -122,7 +122,7 @@ export const bitlayer: Layer2 = {
             type: 'rpc',
             defaultUrl: 'https://rpc.bitlayer.org',
             defaultCallsPerMinute: 400,
-            startBlock: 2566443,
+            startBlock: 2505100,
         },
         trackedTxs: [
 
