@@ -138,3 +138,55 @@ export const ProjectAssetsBreakdownApiResponse = z.object({
 export type ProjectAssetsBreakdownApiResponse = z.infer<
   typeof ProjectAssetsBreakdownApiResponse
 >
+
+
+export const NewCanonicalAssetBreakdownData = BaseAssetBreakdownData.extend({
+  image: z.string(),
+  escrows: z.array(
+    z.object({
+      amount: z.string(),
+      usdValue: z.string(),
+      escrowAddress: z.union([branded(z.string(), EthereumAddress), z.string()]),
+      contract: z.string(),
+    }),
+  ),
+})
+
+export type NewCanonicalAssetBreakdownData = z.infer<
+  typeof NewCanonicalAssetBreakdownData
+>
+
+export const NewExternalAssetBreakdownData = BaseAssetBreakdownData.extend({
+  image: z.string(),
+  contract: z.string(),
+  tokenAddress: z.optional(branded(z.string(), EthereumAddress)),
+})
+
+export type NewExternalAssetBreakdownData = z.infer<
+  typeof NewExternalAssetBreakdownData
+>
+
+export const NewNativeAssetBreakdownData = BaseAssetBreakdownData.extend({
+  image: z.string(),
+  contract: z.string(),
+  tokenAddress: z.optional(branded(z.string(), EthereumAddress)),
+})
+
+export type NewNativeAssetBreakdownData = z.infer<typeof NewNativeAssetBreakdownData>
+
+export const NewProjectAssetsBreakdownApiResponse = z.object({
+  dataTimestamp: branded(z.number(), (n) => new UnixTime(n)),
+  breakdowns: z.record(
+    z.string(), // Project Id
+    z.object({
+      // escrow -> asset[]
+      canonical: z.array(NewCanonicalAssetBreakdownData),
+      external: z.array(NewExternalAssetBreakdownData),
+      native: z.array(NewNativeAssetBreakdownData),
+    }),
+  ),
+})
+
+export type NewProjectAssetsBreakdownApiResponse = z.infer<
+  typeof NewProjectAssetsBreakdownApiResponse
+>

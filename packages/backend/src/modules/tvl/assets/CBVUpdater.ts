@@ -32,10 +32,14 @@ export class CBVUpdater implements ReportUpdater {
     private readonly projects: ReportProject[],
     private readonly logger: Logger,
     private readonly minTimestamp: UnixTime,
-    private readonly chainId:ChainId
+    private readonly chainId: ChainId
   ) {
     this.logger = this.logger.for(this)
-
+    if (this.chainId == ChainId.BITCOIN) {
+      this.projects = filterBtcReportProjects(projects)
+    } else {
+      this.projects = filterNonBtcReportProjects(projects)
+    }
     // TODO(radomski): This config hash should be generated from only CBV projects
     this.configHash = getReportConfigHash(projects)
     this.taskQueue = new TaskQueue(
@@ -161,4 +165,22 @@ export class CBVUpdater implements ReportUpdater {
       return true
     })
   }
+}
+
+function filterBtcReportProjects(projects: ReportProject[]): ReportProject[] {
+  return projects
+    .map((project) => ({
+      ...project,
+      escrows: project.escrows.filter((escrow) => escrow.chain === 'btc'),
+    }))
+    .filter((project) => project.escrows.length > 0)
+}
+
+function filterNonBtcReportProjects(projects: ReportProject[]): ReportProject[] {
+  return projects
+    .map((project) => ({
+      ...project,
+      escrows: project.escrows.filter((escrow) => escrow.chain !== 'btc'),
+    }))
+    .filter((project) => project.escrows.length > 0)
 }

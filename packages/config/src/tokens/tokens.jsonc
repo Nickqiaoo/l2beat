@@ -3,6 +3,57 @@
     {
       "symbol": "ETH",
       "category": "ether"
+    },
+    {
+      "symbol": "WBTC",
+      "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"
+    },
+    {
+      "symbol": "tBTC",
+      "address": "0x18084fbA666a33d37592fA2633fD49a74DD93a88"
+    },
+    {
+      "symbol": "eSOV",
+      "address": "0xbdab72602e9AD40FC6a6852CAf43258113B8F7a5",
+      "coingeckoId": "sovryn"
+    },
+    {
+    "symbol": "STONE",
+      "address": "0x7122985656e38BDC0302Db86685bb972b145bD3C"
+    },
+    {
+      "symbol": "USDT",
+      "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      "category": "stablecoin"
+    },
+    {
+      "symbol": "USDC",
+      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      "category": "stablecoin"
+    },
+    {
+      "symbol": "wstETH",
+      "category": "ether",
+      "address": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
+    },
+    {
+      "symbol": "rETH",
+      "category": "ether",
+      "address": "0xae78736Cd615f374D3085123A210448E74Fc6393"
+    },
+    {
+      "symbol": "ALEX",
+      "address": "0xe7c3755482d0dA522678Af05945062d4427e0923",
+      "coingeckoId": "alexgo"
+    },
+    {
+      "symbol": "DAI",
+      "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+      "category": "stablecoin"
+    },
+    {
+      "symbol": "FXS",
+      "address": "0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0"
     }
   ],
   "bitlayer": [
@@ -77,6 +128,96 @@
       "bridgedUsing": {
         "bridge": "bevm"
       }
+    }
+  ],
+  "bob": [
+    {
+      "symbol": "ETH",
+      "type": "CBV",
+      "formula": "locked",
+      "category": "ether"
+    }
+  ],
+  "rootstock": [
+    {
+      "symbol": "BTC",
+      "type": "CBV",
+      "formula": "totalSupply", // formula does not matter here
+      "category": "ether"
+    },
+    {
+      "symbol": "RIF",
+      "address": "0x2acc95758f8b5f583470ba265eb685a8f45fc9d5",
+      "type": "NMV",
+      "formula": "circulatingSupply"
+    }
+  ],
+  "bsquared": [
+    // {
+    //   "symbol": "ETH",
+    //   "type": "EBV",
+    //   "address": "0xD48d3A551757ac47655fCe25BDE1B0B6b1Cb2a5A",
+    //   "formula": "totalSupply", 
+    //   "coingeckoId": "ethereum",
+    //   "bridgedUsing": {
+    //     "bridge": "bsquared"
+    //   }
+    // },
+    // {
+    //   "symbol": "WBTC",
+    //   "type": "EBV",
+    //   "address": "0x4200000000000000000000000000000000000006",
+    //   "formula": "totalSupply", 
+    //   "coingeckoId": "wrapped-bitcoin",
+    //   "bridgedUsing": {
+    //     "bridge": "bsquared"
+    //   }
+    // },
+    // {
+    //   "symbol": "USDT",
+    //   "type": "EBV",
+    //   "address": "0x681202351a488040Fa4FdCc24188AfB582c9DD62",
+    //   "formula": "totalSupply", 
+    //   "coingeckoId": "tether",
+    //   "bridgedUsing": {
+    //     "bridge": "bsquared"
+    //   }
+    // },
+    // {
+    //   "symbol": "USDC",
+    //   "type": "EBV",
+    //   "address": "0xE544e8a38aDD9B1ABF21922090445Ba93f74B9E5",
+    //   "formula": "totalSupply", 
+    //   "coingeckoId": "usd-coin",
+    //   "bridgedUsing": {
+    //     "bridge": "bsquared"
+    //   }
+    // },
+    // {
+    //   "symbol": "MATIC",
+    //   "type": "EBV",
+    //   "address": "0xc3ee2Df14B1Bc526c24ED802f1873d49664a0d5c",
+    //   "formula": "totalSupply", 
+    //   "coingeckoId": "matic-network",
+    //   "bridgedUsing": {
+    //     "bridge": "bsquared"
+    //   }
+    // },
+    // {
+    //   "symbol": "FDUSD",
+    //   "type": "EBV",
+    //   "address": "0xC2Fe4f673455Ef92299770a09CDB5E8756A525D5",
+    //   "coingeckoId": "first-digital-usd",
+    //   "formula": "totalSupply", 
+    //   "bridgedUsing": {
+    //     "bridge": "bsquared"
+    //   }
+    // }
+    {
+      "symbol": "BTC",
+      "type": "CBV",
+      "formula": "totalSupply", // formula does not matter here
+      "category": "ether"
     }
   ]
 }

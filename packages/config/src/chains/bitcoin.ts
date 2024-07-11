@@ -12,7 +12,7 @@ export const bitcoin: ChainConfig = {
   },
   blockscoutV2ApiUrl: 'https://eth.blockscout.com/api/v2',
   // Deployment of the first L2
-  minTimestampForTvl: new UnixTime(1712247832),
+  minTimestampForTvl: new UnixTime(1710055900),
 
   coingeckoPlatform: 'bitcoin',
 }

@@ -12,7 +12,8 @@ export const ethereum: ChainConfig = {
   },
   blockscoutV2ApiUrl: 'https://eth.blockscout.com/api/v2',
   // Deployment of the first L2
-  minTimestampForTvl: UnixTime.fromDate(new Date('2019-11-14T00:00:00Z')),
+  //minTimestampForTvl: UnixTime.fromDate(new Date('2019-11-14T00:00:00Z')),
+  minTimestampForTvl: UnixTime.fromDate(new Date('2024-03-10T00:00:00Z')),
   multicallContracts: [
     {
       address: EthereumAddress('0xcA11bde05977b3631167028862bE2a173976CA11'),

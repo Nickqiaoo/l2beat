@@ -4,7 +4,11 @@ import {
   AssetId,
   ChainId,
   Hash256,
+  NewCanonicalAssetBreakdownData,
+  NewExternalAssetBreakdownData,
+  NewNativeAssetBreakdownData,
   ProjectAssetsBreakdownApiResponse,
+  NewProjectAssetsBreakdownApiResponse,
   ProjectId,
   ReportType,
   Result,
@@ -44,6 +48,12 @@ type ProjectAssetBreakdownResult = Result<
   ProjectAssetsBreakdownApiResponse,
   'DATA_NOT_FULLY_SYNCED' | 'NO_DATA'
 >
+
+type NewProjectAssetBreakdownResult = Result<
+NewProjectAssetsBreakdownApiResponse,
+  'DATA_NOT_FULLY_SYNCED' | 'NO_DATA'
+>
+
 
 export type TvlResult = Result<
   TvlApiResponse,
@@ -296,7 +306,7 @@ export class TvlController {
     }
   }
 
-  async getProjectTokenBreakdownApiResponse(): Promise<ProjectAssetBreakdownResult> {
+  async getProjectTokenBreakdownApiResponse(): Promise<NewProjectAssetBreakdownResult> {
     const status = await this.getTvlModuleStatus()
 
     if (!status.latestTimestamp) {
@@ -342,15 +352,63 @@ export class TvlController {
       native: nativeAssetsBreakdown,
       canonical: canonicalAssetsBreakdown,
     })
+    const newBreakdowns = this.processBreakdowns(breakdowns, this.projects, this.tokens)
 
     return {
       type: 'success',
       data: {
         dataTimestamp: status.latestTimestamp,
-        breakdowns,
+        breakdowns: newBreakdowns,
       },
     }
   }
+
+  private  processBreakdowns(
+    breakdowns: ProjectAssetsBreakdownApiResponse['breakdowns'],
+    projects: ReportProject[],
+    tokens: Token[]
+): NewProjectAssetsBreakdownApiResponse['breakdowns'] {
+    // 创建 assetId 到 iconUrl 的映射
+    const tokenMap: Record<string, string> = {};
+    tokens.forEach(token => {
+        tokenMap[token.id.toString()] = token.iconUrl??"";
+    });
+
+    // 创建 chainId 到 explorerUrl 和 address 的映射
+    const contractMap: Record<number, string> = {};
+    projects.forEach(project => {
+        const conf = project.chainConfig;
+        contractMap[project.chainConfig?.chainId as number] = `${conf?.explorerUrl}address/`;
+    });
+    const newBreakdowns: NewProjectAssetsBreakdownApiResponse['breakdowns'] = {};
+    // 处理 breakdowns 数据
+    for (const key in breakdowns) {
+      const breakdown = breakdowns[key];
+      newBreakdowns[key] = {
+        canonical: breakdown.canonical.map(item => ({
+          ...item,
+          image: tokenMap[item.assetId.toString()],
+          escrows: item.escrows.map(escrow => (
+           {
+            ...escrow,
+            contract: item.chainId === ChainId.ETHEREUM? "https://etherscan.io/address/" + escrow.escrowAddress:"https://www.blockchain.com/explorer/addresses/btc/" + escrow.escrowAddress
+          }))
+        })),
+        external: breakdown.external.map(item => ({
+          ...item,
+          image: tokenMap[item.assetId.toString()],
+          contract: contractMap[item.chainId as unknown as number] + item.tokenAddress
+        })),
+        native: breakdown.native.map(item => ({
+          ...item,
+          image: tokenMap[item.assetId.toString()],
+          contract: contractMap[item.chainId as unknown as number] + item.tokenAddress
+        }))
+      };
+  }
+
+    return newBreakdowns;
+}
 
   private async getTvlModuleStatus() {
     const { matching: syncedReportsAmount, different: unsyncedReportsAmount } =

@@ -112,6 +112,8 @@ import { zksynclite } from './zksynclite'
 import { zora } from './zora'
 import { bitlayer } from './bitlayer'
 import { bevm } from './bevm'
+import { rootstock } from './rootstock'
+import { bsquared } from './bsquared'
 export * from './common'
 export * from './types'
 
@@ -122,6 +124,9 @@ export const layer2s: Layer2[] = [
   //arbitrum,
   bitlayer,
   bevm,
+  bob,
+  rootstock,
+  bsquared,
   // astarzkevm,
   // axonum,
   // aztecV1,
@@ -129,7 +134,6 @@ export const layer2s: Layer2[] = [
   // aztecV2,
   // base,
   // blast,
-  // bob,
   // bobanetwork,
   // camp,
   // canto,

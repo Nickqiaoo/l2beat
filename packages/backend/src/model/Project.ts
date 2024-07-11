@@ -1,6 +1,7 @@
 import { assert } from '@l2beat/backend-tools'
 import {
   Bridge,
+  ChainConfig,
   Layer2,
   Layer2FinalityConfig,
   Layer2LivenessConfig,
@@ -40,6 +41,7 @@ export interface Project {
   trackedTxsConfig?: TrackedTxsConfig
   livenessConfig?: Layer2LivenessConfig
   finalityConfig?: Layer2FinalityConfig
+  chainConfig?: ChainConfig
 }
 
 export interface ProjectEscrow {
@@ -76,6 +78,7 @@ export function layer2ToProject(layer2: Layer2): Project {
       layer2.config.trackedTxs,
     ),
     livenessConfig: layer2.config.liveness,
+    chainConfig: layer2.chainConfig,
     finalityConfig:
       layer2.config.finality !== 'coming soon'
         ? layer2.config.finality
