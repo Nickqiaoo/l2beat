@@ -118,7 +118,7 @@ export class CirculatingSupplyUpdater {
   ) {
     if (boundary === undefined) {
       // pass undefined which means "sync as much as possible"
-      await this.fetchAndSave(assetId, this.clock.getLastDay().add(-3,"days"), to, address)
+      await this.fetchAndSave(assetId, this.minTimestamp, to, address)
       // TODO: change days
     } else {
       if (to.gt(boundary.latest)) {
