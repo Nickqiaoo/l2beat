@@ -346,21 +346,6 @@
       }
     },
     {
-      "id": "merlin:merl-merl",
-      "name": "MERL",
-      "coingeckoId": "merlin-chain",
-      "address": "0x5c46bFF4B38dc1EAE09C5BAc65872a1D8bc87378",
-      "symbol": "MERL",
-      "decimals": 18,
-      "deploymentTimestamp": 1712139200,
-      "coingeckoListingTimestamp": 1713484800,
-      "category": "other",
-      "iconUrl": "https://coin-images.coingecko.com/coins/images/37118/large/merlin.jpeg?1713352230",
-      "chainId": 4200,
-      "type": "NMV",
-      "formula": "circulatingSupply"
-    },
-    {
       "id": "bevm:btc-bitcoin",
       "name": "Bitcoin",
       "coingeckoId": "bitcoin",
