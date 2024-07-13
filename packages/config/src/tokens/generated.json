@@ -238,6 +238,129 @@
       "formula": "totalSupply"
     },
     {
+      "id": "bsquared:fdusd-fdusd-on-bnb-chain",
+      "name": "FDUSD on BNB Chain",
+      "coingeckoId": "first-digital-usd",
+      "address": "0xC2Fe4f673455Ef92299770a09CDB5E8756A525D5",
+      "symbol": "FDUSD",
+      "decimals": 18,
+      "deploymentTimestamp": 1713942300,
+      "coingeckoListingTimestamp": 1712102400,
+      "category": "other",
+      "iconUrl": "https://coin-images.coingecko.com/coins/images/31079/large/firstfigital.jpeg?1696529912",
+      "chainId": 223,
+      "type": "EBV",
+      "formula": "totalSupply",
+      "bridgedUsing": {
+        "bridge": "bsquared"
+      }
+    },
+    {
+      "id": "bsquared:matic-matic-token",
+      "name": "Matic Token",
+      "coingeckoId": "matic-network",
+      "address": "0xc3ee2Df14B1Bc526c24ED802f1873d49664a0d5c",
+      "symbol": "MATIC",
+      "decimals": 18,
+      "deploymentTimestamp": 1713801780,
+      "coingeckoListingTimestamp": 1712102400,
+      "category": "other",
+      "iconUrl": "https://coin-images.coingecko.com/coins/images/4713/large/polygon.png?1698233745",
+      "chainId": 223,
+      "type": "EBV",
+      "formula": "totalSupply",
+      "bridgedUsing": {
+        "bridge": "bsquared"
+      }
+    },
+    {
+      "id": "bsquared:usdc-usdc",
+      "name": "USDC",
+      "coingeckoId": "usd-coin",
+      "address": "0xE544e8a38aDD9B1ABF21922090445Ba93f74B9E5",
+      "symbol": "USDC",
+      "decimals": 6,
+      "deploymentTimestamp": 1713194002,
+      "coingeckoListingTimestamp": 1712102400,
+      "category": "other",
+      "iconUrl": "https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694",
+      "chainId": 223,
+      "type": "EBV",
+      "formula": "totalSupply",
+      "bridgedUsing": {
+        "bridge": "bsquared"
+      }
+    },
+    {
+      "id": "bsquared:usdt-usdt",
+      "name": "USDT",
+      "coingeckoId": "tether",
+      "address": "0x681202351a488040Fa4FdCc24188AfB582c9DD62",
+      "symbol": "USDT",
+      "decimals": 6,
+      "deploymentTimestamp": 1713268496,
+      "coingeckoListingTimestamp": 1712102400,
+      "category": "other",
+      "iconUrl": "https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661",
+      "chainId": 223,
+      "type": "EBV",
+      "formula": "totalSupply",
+      "bridgedUsing": {
+        "bridge": "bsquared"
+      }
+    },
+    {
+      "id": "bsquared:wbtc-wrapped-btc",
+      "name": "Wrapped BTC",
+      "coingeckoId": "wrapped-bitcoin",
+      "address": "0x4200000000000000000000000000000000000006",
+      "symbol": "WBTC",
+      "decimals": 18,
+      "deploymentTimestamp": 1713163786,
+      "coingeckoListingTimestamp": 1712102400,
+      "category": "other",
+      "iconUrl": "https://coin-images.coingecko.com/coins/images/7598/large/wrapped_bitcoin_wbtc.png?1696507857",
+      "chainId": 223,
+      "type": "EBV",
+      "formula": "totalSupply",
+      "bridgedUsing": {
+        "bridge": "bsquared"
+      }
+    },
+    {
+      "id": "bsquared:eth-wrapped-ether",
+      "name": "Wrapped Ether",
+      "coingeckoId": "ethereum",
+      "address": "0xD48d3A551757ac47655fCe25BDE1B0B6b1Cb2a5A",
+      "symbol": "ETH",
+      "decimals": 18,
+      "deploymentTimestamp": 1713624284,
+      "coingeckoListingTimestamp": 1712102400,
+      "category": "other",
+      "iconUrl": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628",
+      "chainId": 223,
+      "type": "EBV",
+      "formula": "totalSupply",
+      "bridgedUsing": {
+        "bridge": "bsquared"
+      }
+    },
+    {
+      "id": "merlin:merl-merl",
+      "name": "MERL",
+      "coingeckoId": "merlin-chain",
+      "address": "0x5c46bFF4B38dc1EAE09C5BAc65872a1D8bc87378",
+      "symbol": "MERL",
+      "decimals": 18,
+      "deploymentTimestamp": 1712139200,
+      "coingeckoListingTimestamp": 1713484800,
+      "category": "other",
+      "iconUrl": "https://coin-images.coingecko.com/coins/images/37118/large/merlin.jpeg?1713352230",
+      "chainId": 4200,
+      "type": "NMV",
+      "formula": "circulatingSupply"
+    },
+    {
       "id": "bevm:btc-bitcoin",
       "name": "Bitcoin",
       "coingeckoId": "bitcoin",
