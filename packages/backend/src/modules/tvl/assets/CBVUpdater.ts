@@ -41,7 +41,7 @@ export class CBVUpdater implements ReportUpdater {
       this.projects = filterNonBtcReportProjects(projects)
     }
     // TODO(radomski): This config hash should be generated from only CBV projects
-    this.configHash = getReportConfigHash(projects)
+    this.configHash = getReportConfigHash(this.projects)
     this.taskQueue = new TaskQueue(
       (timestamp) => this.update(timestamp),
       this.logger.for('taskQueue'),

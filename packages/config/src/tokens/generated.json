@@ -346,6 +346,21 @@
       }
     },
     {
+      "id": "merlin:merl-merl",
+      "name": "MERL",
+      "coingeckoId": "merlin-chain",
+      "address": "0x5c46bFF4B38dc1EAE09C5BAc65872a1D8bc87378",
+      "symbol": "MERL",
+      "decimals": 18,
+      "deploymentTimestamp": 1712139200,
+      "coingeckoListingTimestamp": 1713484800,
+      "category": "other",
+      "iconUrl": "https://coin-images.coingecko.com/coins/images/37118/large/merlin.jpeg?1713352230",
+      "chainId": 4200,
+      "type": "NMV",
+      "formula": "circulatingSupply"
+    },
+    {
       "id": "bevm:btc-bitcoin",
       "name": "Bitcoin",
       "coingeckoId": "bitcoin",
@@ -476,6 +491,34 @@
       "bridgedUsing": {
         "bridge": "BitLayer"
       }
+    },
+    {
+      "id": "ckbtc:btc-bitcoin",
+      "name": "Bitcoin",
+      "coingeckoId": "bitcoin",
+      "symbol": "BTC",
+      "decimals": 8,
+      "deploymentTimestamp": 1622240100,
+      "coingeckoListingTimestamp": 1622240100,
+      "category": "ether",
+      "iconUrl": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+      "chainId": 10100003,
+      "type": "CBV",
+      "formula": "totalSupply"
+    },
+    {
+      "id": "lightning:btc-bitcoin",
+      "name": "Bitcoin",
+      "coingeckoId": "bitcoin",
+      "symbol": "BTC",
+      "decimals": 8,
+      "deploymentTimestamp": 1622240100,
+      "coingeckoListingTimestamp": 1622240100,
+      "category": "ether",
+      "iconUrl": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+      "chainId": 10100006,
+      "type": "CBV",
+      "formula": "totalSupply"
     }
   ]
 }

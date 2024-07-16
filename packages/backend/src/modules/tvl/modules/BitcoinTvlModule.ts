@@ -38,7 +38,7 @@ export function createBitcoinTvlModule(
 
   assert(tvlConfig.blockNumberProviderConfig.type === 'blockchain')
 
-  const bitcoinClient = peripherals.getClient(BlockchainClient, {})
+  const bitcoinClient = peripherals.getClient(BlockchainClient, {chainId: ChainId(0)})
   
 
   const balanceProvider = new BitcoinBalanceProvider(

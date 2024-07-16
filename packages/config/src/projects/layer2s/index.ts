@@ -114,6 +114,9 @@ import { bitlayer } from './bitlayer'
 import { bevm } from './bevm'
 import { rootstock } from './rootstock'
 import { bsquared } from './bsquared'
+import { merlin } from './merlin'
+import { lightning } from './lightning'
+import { ckbtc } from './ckbtc'
 export * from './common'
 export * from './types'
 
@@ -127,6 +130,9 @@ export const layer2s: Layer2[] = [
   bob,
   rootstock,
   bsquared,
+  merlin,
+  lightning,
+  ckbtc,
   // astarzkevm,
   // axonum,
   // aztecV1,

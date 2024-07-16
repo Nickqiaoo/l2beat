@@ -107,7 +107,6 @@ function createChainModule(
       })
     } else if (chainConfig.config.blockNumberProviderConfig.type === 'blockchain') {
       return peripherals.getClient(BlockchainClient, {
-        minTimestamp: chainConfig.config.minBlockTimestamp,
         chainId: chainConfig.config.chainId,
       })
     } else {

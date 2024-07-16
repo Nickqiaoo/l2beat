@@ -71,7 +71,6 @@ export function chainTvlModule(
       })
     } else if (config.blockNumberProviderConfig.type === 'blockchain') {
       return peripherals.getClient(BlockchainClient, {
-        minTimestamp: config.minBlockTimestamp,
         chainId: config.chainId,
       })
     } else {

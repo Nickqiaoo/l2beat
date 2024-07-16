@@ -227,5 +227,21 @@
       "type": "NMV",
       "formula": "circulatingSupply"
     }
+  ],
+  "lightning": [
+    {
+      "symbol": "BTC",
+      "type": "CBV",
+      "formula": "totalSupply", // formula does not matter here
+      "category": "ether"
+    }
+  ],
+  "ckbtc": [
+    {
+      "symbol": "BTC",
+      "type": "CBV",
+      "formula": "totalSupply", // formula does not matter here
+      "category": "ether"
+    }
   ]
 }
