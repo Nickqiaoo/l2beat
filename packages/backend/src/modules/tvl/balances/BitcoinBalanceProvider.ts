@@ -131,7 +131,7 @@ export class BitcoinBalanceProvider implements BalanceProvider {
 
   async getBalanceNow(addr: string): Promise<number> {
     const cacheKey = addr;
-    const currentTime = Date.now();
+    const currentTime = Date.now() / 1000;
 
     // 检查缓存是否存在且未超时
     if (this.cache.has(cacheKey)) {
