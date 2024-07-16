@@ -136,6 +136,10 @@ export class BalanceUpdater {
       )
 
       await this.balanceRepository.addMany(balances)
+      if (missing.length != balances.length){
+        throw new Error(`missing balances timestamp: ${timestamp}`);
+      }
+      
       this.logger.debug('Updated balances', {
         timestamp: timestamp.toNumber(),
         chainId: this.chainId.toString(),
