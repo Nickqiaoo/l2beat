@@ -20,6 +20,7 @@ import {
   TvlApiResponse,
   UnixTime,
   cacheAsyncFunction,
+  EthereumAddress,
 } from '@l2beat/shared-pure'
 
 import { TaskQueue } from '../../../tools/queue/TaskQueue'
@@ -50,7 +51,7 @@ type ProjectAssetBreakdownResult = Result<
 >
 
 type NewProjectAssetBreakdownResult = Result<
-NewProjectAssetsBreakdownApiResponse,
+  NewProjectAssetsBreakdownApiResponse,
   'DATA_NOT_FULLY_SYNCED' | 'NO_DATA'
 >
 
@@ -363,22 +364,22 @@ export class TvlController {
     }
   }
 
-  private  processBreakdowns(
+  private processBreakdowns(
     breakdowns: ProjectAssetsBreakdownApiResponse['breakdowns'],
     projects: ReportProject[],
     tokens: Token[]
-): NewProjectAssetsBreakdownApiResponse['breakdowns'] {
+  ): NewProjectAssetsBreakdownApiResponse['breakdowns'] {
     // 创建 assetId 到 iconUrl 的映射
     const tokenMap: Record<string, string> = {};
     tokens.forEach(token => {
-        tokenMap[token.id.toString()] = token.iconUrl??"";
+      tokenMap[token.id.toString()] = token.iconUrl ?? "";
     });
 
     // 创建 chainId 到 explorerUrl 和 address 的映射
     const contractMap: Record<number, string> = {};
     projects.forEach(project => {
-        const conf = project.chainConfig;
-        contractMap[project.chainConfig?.chainId as number] = `${conf?.explorerUrl}address/`;
+      const conf = project.chainConfig;
+      contractMap[project.chainConfig?.chainId as number] = `${conf?.explorerUrl}address/`;
     });
     const newBreakdowns: NewProjectAssetsBreakdownApiResponse['breakdowns'] = {};
     // 处理 breakdowns 数据
@@ -389,10 +390,12 @@ export class TvlController {
           ...item,
           image: tokenMap[item.assetId.toString()],
           escrows: item.escrows.map(escrow => (
-           {
-            ...escrow,
-            contract: item.chainId === ChainId.ETHEREUM? "https://etherscan.io/address/" + escrow.escrowAddress:"https://www.blockchain.com/explorer/addresses/btc/" + escrow.escrowAddress
-          }))
+            {
+              usdValue: escrow.usdValue,
+              amount:escrow.amount,
+              escrowAddress: this.getAddress(item.chainId, escrow.escrowAddress),
+              contract: this.getContract(item.chainId, escrow.escrowAddress)
+            }))
         })),
         external: breakdown.external.map(item => ({
           ...item,
@@ -405,10 +408,43 @@ export class TvlController {
           contract: contractMap[item.chainId as unknown as number] + item.tokenAddress
         }))
       };
-  }
+    }
 
     return newBreakdowns;
-}
+  }
+  private getContract(chainid:ChainId, escrowAddress: string | EthereumAddress):string{
+    switch (chainid) {
+      case ChainId.ETHEREUM:
+        return "https://etherscan.io/address/" + escrowAddress;
+      case ChainId.BITCOIN:
+        if (escrowAddress.startsWith("defillama")){
+          switch (escrowAddress.toString().split(':')[1]){
+            case "lightning-network":
+              return "https://mempool.space/lightning"; 
+            case "ckbtc":
+              return "https://dashboard.internetcomputer.org/bitcoin";
+          }
+        }
+        return "https://www.blockchain.com/explorer/addresses/btc/" + escrowAddress;
+      default:
+        return "";
+    }
+  }
+
+  private getAddress(chainid:ChainId, escrowAddress: string | EthereumAddress):string | EthereumAddress{
+    switch (chainid) {
+      case ChainId.ETHEREUM:
+        return  escrowAddress;
+      case ChainId.BITCOIN:
+        if (escrowAddress.startsWith("defillama")){
+          return "- -"
+        }else {
+          return escrowAddress
+        }
+      default:
+        return "- -";
+    }
+  }
 
   private async getTvlModuleStatus() {
     const { matching: syncedReportsAmount, different: unsyncedReportsAmount } =

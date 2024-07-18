@@ -7,7 +7,6 @@ import { AddressTransactionResult, BlockInfo, BalanceInfo, BalanceResult, Balanc
 const API_URL = 'https://blockchain.info'
 const DEFILLAMA_API_URL = 'https://api.llama.fi/protocol/'
 const BLOCKSTREAM_API_URL = 'https://blockstream.info/api/address/'
-const delay = 1 * 60 * 60 
 
 export class BlockchainClient implements BlockNumberProvider {
   private readonly timeoutMs = 20000
@@ -79,15 +78,12 @@ export class BlockchainClient implements BlockNumberProvider {
     }));
   }
 
-  async getBalanceHistory(addr: string, timestamp: UnixTime, balancenow:number): Promise<number> {
-    const now = Date.now() / 1e3;
-    if (!timestamp || (now - timestamp.toNumber()) < delay) return balancenow;
-   
-    let endpoint = `https://go.getblock.io/${this.getblockKey}/api/v2/balancehistory/${addr}?fiatcurrency=btc&groupBy=86400&from=${timestamp}`;
+  async getBalanceHistory(addr: string, from: UnixTime, to:UnixTime, balancenow:number): Promise<number> {
+    let endpoint = `https://go.getblock.io/${this.getblockKey}/api/v2/balancehistory/${addr}?fiatcurrency=btc&groupBy=86400&from=${from}&to=${to}`;
   
     const response = await this.query(endpoint,'',{}) as GetBlockHistory[];
     response.forEach(({ sent, received }) => balancenow += sent- received);
-    //console.log('bitcoin balance', addr, timestamp, balancenow);
+    console.log('bitcoin balance', addr, from, balancenow);
     return balancenow;
   }
 

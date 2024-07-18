@@ -2,13 +2,14 @@ import { BalanceInfo, BlockchainClient } from '@l2beat/shared'
 import { BalanceRecord } from '../repositories/BalanceRepository'
 import { UnixTime, ChainId, EthereumAddress, AssetId } from '@l2beat/shared-pure'
 import { BalanceProvider, BalanceQuery } from './BalanceProvider'
+import { time } from 'console'
 
 export interface BitcoinBalanceQuery {
   address: string
 }
 
 type CacheEntry = {
-  timestamp: number,
+  timestamp: UnixTime,
   data: any
 };
 
@@ -129,23 +130,22 @@ export class BitcoinBalanceProvider implements BalanceProvider {
     return [...normalBalances, ...defiLlamaBalances];
   }
 
-  async getBalanceNow(addr: string): Promise<number> {
+  async getBalanceNow(addr: string, queryTime: UnixTime): Promise<{ balance: number, timestamp: UnixTime }> {
     const cacheKey = addr;
-    const currentTime = Date.now() / 1000;
+    const currentTime =  Math.floor(Date.now() / 1000);
 
-    // 检查缓存是否存在且未超时
     if (this.cache.has(cacheKey)) {
       const cacheEntry = this.cache.get(cacheKey)!;
-      if (currentTime - cacheEntry.timestamp < this.cacheTimeout) {
-        return cacheEntry.data;
+      if (queryTime <= cacheEntry.timestamp) {
+        return { balance: cacheEntry.data, timestamp: cacheEntry.timestamp };
       }
     }
     const balance = await this.blockchainClient.getBalanceNow(addr)
     this.cache.set(cacheKey, {
-      timestamp: currentTime,
+      timestamp: new UnixTime(currentTime),
       data: balance
     });
-    return balance
+    return { balance, timestamp: new UnixTime(currentTime) };
   }
 
   async fetchNormalBalances(
@@ -157,8 +157,8 @@ export class BitcoinBalanceProvider implements BalanceProvider {
 
     for (const query of balanceQueries) {
       try {
-        const balancenow = await this.getBalanceNow(`${query.holder}`);
-        const balance = await this.blockchainClient.getBalanceHistory(`${query.holder}`, timestamp, balancenow);
+        const { balance: balancenow, timestamp: balancetime }  = await this.getBalanceNow(`${query.holder}`, timestamp);
+        const balance = await this.blockchainClient.getBalanceHistory(`${query.holder}`, timestamp, balancetime, balancenow);
         balances.push({
           assetId: AssetId('btc-bitcoin'),
           timestamp,
