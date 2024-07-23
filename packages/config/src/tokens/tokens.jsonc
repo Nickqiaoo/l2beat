@@ -74,16 +74,6 @@
       "category": "ether"
     },
     {
-      "symbol": "WBTC",
-      "type": "EBV",
-      "address": "0xff204e2681a6fa0e2c3fade68a1b28fb90e4fc5f",
-      "formula": "totalSupply", 
-      "coingeckoId": "wrapped-bitcoin",
-      "bridgedUsing": {
-        "bridge": "BitLayer"
-      }
-    },
-    {
       "symbol": "USDT",
       "type": "EBV",
       "address": "0xfe9f969faf8ad72a83b761138bf25de87eff9dd2",

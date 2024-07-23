@@ -88,6 +88,18 @@ export const bitlayer: Layer2 = {
                 chain: 'btc'
             },
             {
+                address: '32a7u8tM45GPSdjzy7PbRvuncEvHFxnYR4',
+                tokens:['BTC'],
+                sinceTimestamp: new UnixTime(1712247832),
+                chain: 'btc'
+            },
+            {
+                address: '3D3a4fPJ5HKw43Qd6QHtoJ6RvMUL7UBDT5',
+                tokens:['BTC'],
+                sinceTimestamp: new UnixTime(1712247832),
+                chain: 'btc'
+            },
+            {
                 address: 'bc1p87c2auxxj372evzhd5f5huddtrladtkn3z4p94ew32qvwcsgujestjj45r',
                 tokens:['BTC'],
                 sinceTimestamp: new UnixTime(1712247832),
