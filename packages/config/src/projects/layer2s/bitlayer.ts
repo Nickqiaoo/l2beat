@@ -129,6 +129,12 @@ export const bitlayer: Layer2 = {
                 sinceTimestamp: new UnixTime(1712247832),
                 chain: 'btc'
             },
+            {
+                address: '18vdapRrE6R2qv6hEjW7gAWR6XjfMo1zUA',
+                tokens:['BTC'],
+                sinceTimestamp: new UnixTime(1718886413),
+                chain: 'btc'
+            },
         ],
         transactionApi: {
             type: 'rpc',
