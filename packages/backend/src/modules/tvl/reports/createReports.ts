@@ -1,4 +1,4 @@
-import { assert, AssetId, ChainId, UnixTime } from '@l2beat/shared-pure'
+import { assert, AssetId, ChainId, ReportType, UnixTime } from '@l2beat/shared-pure'
 
 import { BalanceRecord } from '../repositories/BalanceRepository'
 import { PriceRecord } from '../repositories/PriceRepository'
@@ -32,6 +32,10 @@ export function createReports(
       continue
     }
     reports.push(createReport(price, balance, ethPrice))
+    if (balance.assetId === AssetId.BTC || balance.assetId === AssetId.WBTC || balance.assetId === AssetId.TBTC) {
+      const btcBalance = { ...balance, type: ReportType("BTC") };
+      reports.push(createReport(price, btcBalance, ethPrice));
+    }
   }
 
   return reports

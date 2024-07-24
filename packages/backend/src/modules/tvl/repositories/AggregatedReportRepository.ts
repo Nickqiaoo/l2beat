@@ -31,6 +31,7 @@ interface CombinedAggregatedRow {
   nmv_eth_value: bigint
   tvl_usd_value: bigint
   tvl_eth_value: bigint
+  btc_usd_value: bigint
 }
 
 interface CombinedAggregatedRecord {
@@ -43,6 +44,7 @@ interface CombinedAggregatedRecord {
   nmvEthValue: bigint
   tvlUsdValue: bigint
   tvlEthValue: bigint
+  btcUsdValue: bigint
 }
 
 export class AggregatedReportRepository extends BaseRepository {
@@ -254,6 +256,7 @@ function toAggregatedRow(row: CombinedAggregatedRow): CombinedAggregatedRecord {
     nmvEthValue: BigInt(row.nmv_eth_value),
     tvlUsdValue: BigInt(row.tvl_usd_value),
     tvlEthValue: BigInt(row.tvl_eth_value),
+    btcUsdValue: BigInt(row.btc_usd_value),
   }
 }
 
@@ -266,4 +269,5 @@ const AGGREGATED_SUM_QUERIES = [
   "SUM(CASE WHEN report_type = 'NMV' THEN eth_value ELSE 0 END) as nmv_eth_value",
   "SUM(CASE WHEN report_type = 'TVL' THEN usd_value ELSE 0 END) as tvl_usd_value",
   "SUM(CASE WHEN report_type = 'TVL' THEN eth_value ELSE 0 END) as tvl_eth_value",
+  "SUM(CASE WHEN report_type = 'BTC' THEN usd_value ELSE 0 END) as btc_usd_value",
 ]

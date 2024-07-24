@@ -1,8 +1,8 @@
-export type ReportType = 'CBV' | 'EBV' | 'NMV'
+export type ReportType = 'CBV' | 'EBV' | 'NMV' | 'BTC' 
 export type AggregatedReportType = ReportType | 'TVL'
 
 export function isReportType(value: string): value is ReportType {
-  return value === 'CBV' || value === 'EBV' || value === 'NMV'
+  return value === 'CBV' || value === 'EBV' || value === 'NMV' || value === 'BTC' 
 }
 
 export function isAggregatedReportType(value: string): value is ReportType {

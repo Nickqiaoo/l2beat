@@ -17,6 +17,7 @@ const TvlApiChartPoint = z.tuple([
   z.number(),
   z.number(),
   z.number(),
+  z.number(),
 ])
 export type TvlApiChartPoint = z.infer<typeof TvlApiChartPoint>
 
@@ -31,6 +32,7 @@ const TvlApiChart = z.object({
     z.literal('cbvEth'),
     z.literal('ebvEth'),
     z.literal('nmvEth'),
+    z.literal('btcUsd'),
   ]),
   data: z.array(TvlApiChartPoint),
 })

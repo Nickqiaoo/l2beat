@@ -57,7 +57,7 @@ export function buildReportTree(
 
   const reportTree = ReportTree.from(
     uniqueProjects,
-    ['CBV', 'EBV', 'NMV'] as ReportType[],
+    ['CBV', 'EBV', 'NMV', 'BTC'] as ReportType[],
     () => [] as ReportRecord[],
   )
 
@@ -82,7 +82,7 @@ function aggregateReportTree(
 
   const reportTree = ReportTree.from(
     projects,
-    ['CBV', 'EBV', 'NMV', 'TVL'] as AggregatedReportType[],
+    ['CBV', 'EBV', 'NMV', 'TVL', 'BTC'] as AggregatedReportType[],
     () => ({
       usdValue: 0n,
       ethValue: 0n,
@@ -101,9 +101,10 @@ function aggregateReportTree(
         usdValue,
         ethValue,
       }))
-
-      projectEthValue += ethValue
-      projectUsdValue += usdValue
+      if (reportType != ReportType("BTC")){
+        projectEthValue += ethValue
+        projectUsdValue += usdValue
+      }
     }
 
     reportTree.set(project, 'TVL', () => ({
@@ -126,7 +127,7 @@ export function deriveCategoryTree(
 ): SerializableReportTree {
   const categoriesTree = ReportTree.from(
     [ProjectId.ALL, ProjectId.BRIDGES, ProjectId.LAYER2S],
-    ['CBV', 'EBV', 'NMV', 'TVL'] as AggregatedReportType[],
+    ['CBV', 'EBV', 'NMV', 'TVL', 'BTC'] as AggregatedReportType[],
     () => ({
       usdValue: 0n,
       ethValue: 0n,
