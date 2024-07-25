@@ -478,6 +478,7 @@ export const TYPE_LABELS: TvlApiChart['types'] = [
   'cbvEth',
   'ebvEth',
   'nmvEth',
+  'btcUsd',
 ]
 
 function aggregateRecordsToResponse(
@@ -491,6 +492,7 @@ function aggregateRecordsToResponse(
     nmvEthValue: bigint
     tvlUsdValue: bigint
     tvlEthValue: bigint
+    btcUsdValue: bigint
   }[],
 ): TvlApiChart {
   return {
@@ -505,6 +507,7 @@ function aggregateRecordsToResponse(
       asNumber(report.cbvEthValue, 6),
       asNumber(report.ebvEthValue, 6),
       asNumber(report.nmvEthValue, 6),
+      asNumber(report.btcUsdValue, 2),
     ]),
   }
 }

@@ -945,6 +945,7 @@ function getChart(data: TvlApiChart['data']): TvlApiChart {
       'cbvEth',
       'ebvEth',
       'nmvEth',
+      'btcUsd',
     ] as [
       'timestamp',
       'valueUsd',
@@ -955,6 +956,7 @@ function getChart(data: TvlApiChart['data']): TvlApiChart {
       'cbvEth',
       'ebvEth',
       'nmvEth',
+      'btcUsd',
     ],
     data,
   }
@@ -976,6 +978,7 @@ function getChartPoint(
   const cbvEth = cbvUsd / ethPrice
   const ebvEth = ebvUsd / ethPrice
   const nmvEth = nmvUsd / ethPrice
+  const btcUsd = nmvUsd / ethPrice
 
   return [
     timestamp,
@@ -987,6 +990,7 @@ function getChartPoint(
     cbvEth,
     ebvEth,
     nmvEth,
+    btcUsd,
   ] as TvlApiChart['data'][0]
 }
 
@@ -1005,7 +1009,7 @@ function sumCharts(chart1: TvlApiChart, chart2: TvlApiChart): TvlApiChart {
   const shorterPadded = Array(
     longerChart.data.length - shorterChart.data.length,
   )
-    .fill([new UnixTime(0), 0, 0, 0, 0, 0, 0, 0, 0] as TvlApiChart['data'][0])
+    .fill([new UnixTime(0), 0, 0, 0, 0, 0, 0, 0, 0, 0] as TvlApiChart['data'][0])
     .concat(shorterChart.data)
 
   return {
@@ -1022,6 +1026,7 @@ function sumCharts(chart1: TvlApiChart, chart2: TvlApiChart): TvlApiChart {
           x[6] + shorterPadded[i][6],
           x[7] + shorterPadded[i][7],
           x[8] + shorterPadded[i][8],
+          x[9] + shorterPadded[i][9],
         ] as TvlApiChart['data'][0],
     ),
   }

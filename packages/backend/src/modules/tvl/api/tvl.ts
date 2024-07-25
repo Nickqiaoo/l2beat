@@ -266,7 +266,7 @@ function reshapeCanonicalResponse(
       Object.entries(projectBreakdown)
         .map(([asset, escrows]) => ({
           assetId: AssetId(asset),
-          chainId: project == 'bob' ? ChainId.ETHEREUM :ChainId.BITCOIN,
+          chainId: escrows[0].chainId,
           usdValue: escrows
             .reduce((total, e) => total + Number(e.usdValue), 0)
             .toString(),

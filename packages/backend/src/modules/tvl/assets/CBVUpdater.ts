@@ -140,13 +140,20 @@ export class CBVUpdater implements ReportUpdater {
       })
       await setTimeout(refreshIntervalMs)
     }
-    const reports = await this.reportRepository.getByTimestampAndPreciseAsset(
+    const cbvReports = await this.reportRepository.getByTimestampAndPreciseAsset(
       timestamp,
       this.getChainId(),
       'CBV',
     )
 
-    return reports.filter((r) => {
+    const btcReports = await this.reportRepository.getByTimestampAndPreciseAsset(
+      timestamp,
+      this.getChainId(),
+      'BTC',
+    )
+    const combinedReports = [...cbvReports, ...btcReports]
+
+    return combinedReports.filter((r) => {
       const project = this.projects.find((p) => p.projectId === r.projectId)
 
       const token = project?.escrows

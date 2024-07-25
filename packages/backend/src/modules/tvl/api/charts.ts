@@ -63,6 +63,7 @@ export function addMissingTimestamps(
       existing?.[5] ?? previous[6],
       existing?.[6] ?? previous[7],
       existing?.[7] ?? previous[8],
+      existing?.[8] ?? previous[9],
     ])
   }
   return allPoints

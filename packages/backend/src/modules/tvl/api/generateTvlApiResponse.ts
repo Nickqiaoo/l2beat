@@ -12,6 +12,7 @@ import { AggregatedReportRecord } from '../repositories/AggregatedReportReposito
 import { ReportRecord } from '../repositories/ReportRepository'
 import { asNumber } from './asNumber'
 import { getProjectTokensCharts, groupByProjectIdAndAssetType } from './tvl'
+import { number } from 'zod'
 
 export const TYPE_LABELS: TvlApiChart['types'] = [
   'timestamp',
@@ -23,6 +24,7 @@ export const TYPE_LABELS: TvlApiChart['types'] = [
   'cbvEth',
   'ebvEth',
   'nmvEth',
+  'btcUsd',
 ]
 
 const USD_INDEX = {
@@ -37,6 +39,10 @@ const ETH_INDEX = {
   CBV: 6,
   EBV: 7,
   NMV: 8,
+}
+
+const BTC_INDEX = {
+  BTC: 9,
 }
 
 const PERIODS = [
@@ -151,7 +157,7 @@ function calculateSummary(project: TvlApiProject) {
     .filter(token => token.assetId.includes('btc'))
     .reduce((sum, token) => sum + token.usdValue, 0);
 
-  const stableTotal = project.tokens.EBV.concat(project.tokens.NMV)
+  const stableTotal = project.tokens.EBV.concat(project.tokens.NMV, project.tokens.CBV)
     .filter(token => token.assetId.includes('usdt') || token.assetId.includes('usdc'))
     .reduce((sum, token) => sum + token.usdValue, 0);
 
@@ -200,8 +206,12 @@ function fillCharts(
       }
 
       const point = apiCharts[period].data[index]
-      point[USD_INDEX[report.reportType]] = asNumber(report.usdValue, 2)
-      point[ETH_INDEX[report.reportType]] = asNumber(report.ethValue, 6)
+      if (report.reportType == "BTC"){
+        point[BTC_INDEX[report.reportType]] = asNumber(report.usdValue, 2)
+      }else {
+        point[USD_INDEX[report.reportType]] = asNumber(report.usdValue, 2)
+        point[ETH_INDEX[report.reportType]] = asNumber(report.ethValue, 6)
+      }
     }
   }
 }
@@ -244,7 +254,7 @@ function generateZeroes(
     timestamp.lte(until);
     timestamp = timestamp.add(offsetHours, 'hours')
   ) {
-    zeroes.push([timestamp, 0, 0, 0, 0, 0, 0, 0, 0])
+    zeroes.push([timestamp, 0, 0, 0, 0, 0, 0, 0, 0, 0])
   }
   return zeroes
 }

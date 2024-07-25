@@ -310,24 +310,6 @@
       }
     },
     {
-      "id": "bsquared:wbtc-wrapped-btc",
-      "name": "Wrapped BTC",
-      "coingeckoId": "wrapped-bitcoin",
-      "address": "0x4200000000000000000000000000000000000006",
-      "symbol": "WBTC",
-      "decimals": 18,
-      "deploymentTimestamp": 1713163786,
-      "coingeckoListingTimestamp": 1712102400,
-      "category": "other",
-      "iconUrl": "https://coin-images.coingecko.com/coins/images/7598/large/wrapped_bitcoin_wbtc.png?1696507857",
-      "chainId": 223,
-      "type": "EBV",
-      "formula": "totalSupply",
-      "bridgedUsing": {
-        "bridge": "bsquared"
-      }
-    },
-    {
       "id": "bsquared:eth-wrapped-ether",
       "name": "Wrapped Ether",
       "coingeckoId": "ethereum",
@@ -375,24 +357,6 @@
       "formula": "totalSupply"
     },
     {
-      "id": "bevm:wbtc-wrapped-btc",
-      "name": "Wrapped BTC",
-      "coingeckoId": "wrapped-bitcoin",
-      "address": "0xB5136FEba197f5fF4B765E5b50c74db717796dcD",
-      "symbol": "WBTC",
-      "decimals": 18,
-      "deploymentTimestamp": 1710922920,
-      "coingeckoListingTimestamp": 1711929600,
-      "category": "other",
-      "iconUrl": "https://coin-images.coingecko.com/coins/images/7598/large/wrapped_bitcoin_wbtc.png?1696507857",
-      "chainId": 11501,
-      "type": "EBV",
-      "formula": "totalSupply",
-      "bridgedUsing": {
-        "bridge": "bevm"
-      }
-    },
-    {
       "id": "bob:eth-ethereum-token",
       "name": "Ethereum Token",
       "coingeckoId": "ethereum",
@@ -419,60 +383,6 @@
       "chainId": 200901,
       "type": "CBV",
       "formula": "totalSupply"
-    },
-    {
-      "id": "bitlayer:eth-ethereum-token",
-      "name": "Ethereum Token",
-      "coingeckoId": "ethereum",
-      "address": "0xEf63d4E178b3180BeEc9B0E143e0f37F4c93f4C2",
-      "symbol": "ETH",
-      "decimals": 18,
-      "deploymentTimestamp": 1713191086,
-      "coingeckoListingTimestamp": 1713191086,
-      "category": "other",
-      "iconUrl": "https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628",
-      "chainId": 200901,
-      "type": "EBV",
-      "formula": "totalSupply",
-      "bridgedUsing": {
-        "bridge": "BitLayer"
-      }
-    },
-    {
-      "id": "bitlayer:usdt-tether-usd",
-      "name": "Tether USD",
-      "coingeckoId": "tether",
-      "address": "0xfe9f969faf8Ad72a83b761138bF25dE87eFF9DD2",
-      "symbol": "USDT",
-      "decimals": 6,
-      "deploymentTimestamp": 1713190030,
-      "coingeckoListingTimestamp": 1713190030,
-      "category": "other",
-      "iconUrl": "https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661",
-      "chainId": 200901,
-      "type": "EBV",
-      "formula": "totalSupply",
-      "bridgedUsing": {
-        "bridge": "BitLayer"
-      }
-    },
-    {
-      "id": "bitlayer:usdc-usd-coin",
-      "name": "USD Coin",
-      "coingeckoId": "usd-coin",
-      "address": "0x9827431e8b77E87C9894BD50B055D6BE56bE0030",
-      "symbol": "USDC",
-      "decimals": 6,
-      "deploymentTimestamp": 1713190762,
-      "coingeckoListingTimestamp": 1713190762,
-      "category": "other",
-      "iconUrl": "https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694",
-      "chainId": 200901,
-      "type": "EBV",
-      "formula": "totalSupply",
-      "bridgedUsing": {
-        "bridge": "BitLayer"
-      }
     },
     {
       "id": "ckbtc:btc-bitcoin",

@@ -21,6 +21,10 @@ AssetId.ETH = AssetId('eth-ether')
 AssetId.OP = AssetId('op-optimism')
 AssetId.ARB = AssetId('arb-arbitrum')
 
+AssetId.BTC = AssetId('btc-bitcoin')
+AssetId.WBTC = AssetId('wbtc-wrapped-btc')
+AssetId.TBTC = AssetId('tbtc-tbtc-v2')
+
 AssetId.fake = function fake(name?: string) {
   if (name) {
     return AssetId(`fake-${name}`)
