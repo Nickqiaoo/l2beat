@@ -126,13 +126,6 @@ export const bitlayer: Layer2 = {
                 chain: 'btc'
             },
             {
-                address: '18vdapRrE6R2qv6hEjW7gAWR6XjfMo1zUA',
-                tokens:['BTC'],
-                sinceTimestamp: new UnixTime(1718886413),
-                chain: 'btc'
-            },
-            
-            {
                 address: 'bc1pxpp82hc4t4flkyqtjdnzr3q72qh9st78gfge50vzlrjtp9c6yn4s5zq5vk',
                 tokens:['BTC'],
                 sinceTimestamp: new UnixTime(1712247832),
@@ -147,14 +140,14 @@ export const bitlayer: Layer2 = {
             discovery.getEscrowDetails({
                 // Custom ERC20 Gateway
                 address: EthereumAddress('0xA4252F2A68b2A078c86E0569eB7Fb872A37864AF'),
-                tokens: '*',
+                tokens: ['USDT','ETH','USDC','wstETH'],
                 description:
                   'Main entry point for users depositing ERC20 tokens that require minting custom token on L2.',
               }),
             discovery.getEscrowDetails({
                 // Custom ERC20 Gateway
                 address: EthereumAddress('0x3111653DB0e7094b111b8e435Df9193b62C2C576'),
-                tokens: '*',
+                tokens: ['USDT','STONE','USDC'],
                 description:
                   'Main entry point for users depositing ERC20 tokens that require minting custom token on L2.',
               }),
