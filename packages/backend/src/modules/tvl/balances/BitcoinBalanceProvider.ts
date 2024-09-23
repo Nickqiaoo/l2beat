@@ -35,7 +35,7 @@ export class BitcoinBalanceProvider implements BalanceProvider {
 
   async getDefiLlamaCache(): Promise<Map<string, BalanceInfo[]>> {
     const cache = new Map<string, BalanceInfo[]>()
-    const protocols = ['lightning-network', 'ckbtc'];
+    const protocols = ['lightning-network'/*, 'ckbtc'*/];
 
     for (const protocol of protocols) {
       if (!cache.has(protocol)) {
