@@ -385,20 +385,6 @@
       "formula": "totalSupply"
     },
     {
-      "id": "ckbtc:btc-bitcoin",
-      "name": "Bitcoin",
-      "coingeckoId": "bitcoin",
-      "symbol": "BTC",
-      "decimals": 8,
-      "deploymentTimestamp": 1622240100,
-      "coingeckoListingTimestamp": 1622240100,
-      "category": "ether",
-      "iconUrl": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
-      "chainId": 10100003,
-      "type": "CBV",
-      "formula": "totalSupply"
-    },
-    {
       "id": "lightning:btc-bitcoin",
       "name": "Bitcoin",
       "coingeckoId": "bitcoin",
