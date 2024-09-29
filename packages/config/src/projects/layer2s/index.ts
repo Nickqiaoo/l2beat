@@ -132,7 +132,7 @@ export const layer2s: Layer2[] = [
   bsquared,
   merlin,
   lightning,
-  ckbtc,
+  // ckbtc,
   // astarzkevm,
   // axonum,
   // aztecV1,
